@@ -9,4 +9,16 @@ message TextProto {
 message AudioProto {
     required bytes audio = 1;
     required uint32 length = 2;
+    optional uint32 sample_rate = 3;
+}
+
+message ImageProto {
+    required bytes image = 1;
+    required uint32 length = 2;
+    optional uint32 encoding_method = 3;
+}
+
+message VideoProto {
+    repeated ImageProto frames = 1;
+    optional uint32 frame_rate = 2;
 }
