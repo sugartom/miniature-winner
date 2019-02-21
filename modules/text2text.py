@@ -39,18 +39,18 @@ class Text2Text:
         ]
 
 
-    def PreProcess(self, input)
+    def PreProcess(self, input):
         feed_dict = self.model.get_data_layer().create_feed_dict(input)
 
         return feed_dict
 
-    def Apply(self, feed_dict)
+    def Apply(self, feed_dict):
 
         inputs, outputs = self.sess.run(self.fetches, feed_dict=input)
 
         return inputs, outputs
 
-    def PostProcess(self, inputs, outputs)
+    def PostProcess(self, inputs, outputs):
         result = self.model.infer(inputs, outputs)
 
         return result

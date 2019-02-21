@@ -8,6 +8,6 @@ class TextEncoder:
         self.sp1 = spm.SentencePieceProcessor()
         self.sp1.Load(model_de)
 
-    def Apply(self, input)
+    def Apply(self, input):
         decoded_tgt = sp1.DecodePieces(input.split(" "))
         return decoded_tgt
