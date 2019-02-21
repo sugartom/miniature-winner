@@ -1,0 +1,12 @@
+package modules.proto;
+
+message TextProto {
+	required string text = 1;
+	required uint32 length = 2;
+	optional string encoding_method = 3;
+}
+
+message AudioProto {
+	required bytes audio = 1;
+	required uint32 length = 2;
+}
