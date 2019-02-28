@@ -1,4 +1,4 @@
-package modules.proto;
+package modules.data;
 
 message TextProto {
     required string text = 1;
