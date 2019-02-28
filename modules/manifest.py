@@ -1,35 +1,36 @@
+import modules_pb2
 
 Text2Text = {
-    "input": TextProto,
-    "output": TextProto,
+    "input": modules_pb2.TEXT,
+    "output": modules_pb2.TEXT,
     "computational_device": 1,
     "library_code_path": "text2text.py"
 }
 
 
 Text2Speech = {
-    "input": TextProto,
-    "output": AudioProto,
+    "input": modules_pb2.TEXT,
+    "output": modules_pb2.AUDIO,
     "computational_device": 1,
     "library_code_path": "text2speech.py"
 }
 
 
 Speech2Text = {
-    "input": AudioProto,
-    "output": TextProto,
+    "input": modules_pb2.AUDIO,
+    "output": modules_pb2.TEXT,
     "computational_device": 1,
     "library_code_path": "text2speech.py"
 }
 
 TextEncoder = {
-    "input": TextProto,
-    "output": TextProto,
+    "input": modules_pb2.TEXT,
+    "output": modules_pb2.TEXT,
     "computational_device": 0,
 }
 
 TextDecoder = {
-    "input": TextProto,
-    "output": TextProto,
+    "input": modules_pb2.TEXT,
+    "output": modules_pb2.TEXT,
     "computational_device": 0,
 }
