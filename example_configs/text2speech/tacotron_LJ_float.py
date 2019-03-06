@@ -12,6 +12,7 @@ from open_seq2seq.optimizers.lr_policies import fixed_lr, transformer_policy, ex
 base_model = Text2Speech
 
 dataset = "LJ"
+# Not a necessary variable for interactive inference , but leave it here to please the framework
 dataset_location = "/home/oscar/sdb3/data/LJSpeech-1.1"
 output_type = "both"
 
@@ -64,7 +65,7 @@ base_params = {
   "eval_steps": 500,
   "save_checkpoint_steps": 2500,
   "save_to_tensorboard": True,
-  "logdir": "/home/oscar/filesys/tacotron-LJ-float/checkpoint/",
+  "logdir": "../tacotron-LJ-float/checkpoint/",
 #  "logdir": "result/tacotron-LJ-float",
   "max_grad_norm":1.,
 
@@ -183,7 +184,7 @@ base_params = {
     "dataset": dataset,
     "num_audio_features": num_audio_features,
     "output_type": output_type,
-    "vocab_file": "open_seq2seq/test_utils/vocab_tts.txt",
+    "vocab_file": "../open_seq2seq/test_utils/vocab_tts.txt",
     'dataset_location':dataset_location,
     "mag_power": 1,
     "pad_EOS": True,
@@ -199,36 +200,36 @@ base_params = {
   },
 }
 
-train_params = {
-  "data_layer_params": {
-    "dataset_files": [
-      os.path.join(dataset_location, train),
-    ],
-    "shuffle": True,
-  },
-}
+# train_params = {
+#   "data_layer_params": {
+#     "dataset_files": [
+#       os.path.join(dataset_location, train),
+#     ],
+#     "shuffle": True,
+#   },
+# }
 
-eval_params = {
-  "data_layer_params": {
-    "dataset_files": [
-      os.path.join(dataset_location, val),
-    ],
-    "duration_max":10000,
-    "duration_min":0,
-    "shuffle": False,
-  },
-}
+# eval_params = {
+#   "data_layer_params": {
+#     "dataset_files": [
+#       os.path.join(dataset_location, val),
+#     ],
+#     "duration_max":10000,
+#     "duration_min":0,
+#     "shuffle": False,
+#   },
+# }
 
-infer_params = {
-  "data_layer_params": {
-    "dataset_files": [
-      os.path.join(dataset_location, "test.csv"),
-    ],
-    "duration_max":10000,
-    "duration_min":0,
-    "shuffle": False,
-  },
-}
+# infer_params = {
+#   "data_layer_params": {
+#     "dataset_files": [
+#       os.path.join(dataset_location, "test.csv"),
+#     ],
+#     "duration_max":10000,
+#     "duration_min":0,
+#     "shuffle": False,
+#   },
+# }
 
 interactive_infer_params = {
   "data_layer_params": {

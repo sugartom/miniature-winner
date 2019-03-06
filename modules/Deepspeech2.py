@@ -11,12 +11,12 @@ def get_model(args, scope):
     return model, checkpoint
 
 
-class Speech2Text:
+class Deepspeech2:
 
     def Setup(self):
-        args_S2T = ["--config_file=example_configs/speech2text/ds2_large_8gpus_mp.py",
+        args_S2T = ["--config_file=../example_configs/speech2text/ds2_large_8gpus_mp.py",
                     "--mode=interactive_infer",
-                    "--logdir=/home/oscar/filesys/deepspeech2/ds2_large/",
+                    "--logdir=../checkpoints/ds2_large/",
                     "--batch_size_per_gpu=1",
                     ]
         self.model, checkpoint_S2T = get_model(args_S2T, "S2T")
@@ -45,7 +45,7 @@ class Speech2Text:
         return feed_dict
 
     def Apply(self, feed_dict):
-        inputs, outputs = self.sess.run(self.fetches, feed_dict=input)
+        inputs, outputs = self.sess.run(self.fetches, feed_dict=feed_dict)
 
         return inputs, outputs
 

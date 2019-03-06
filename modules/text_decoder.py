@@ -1,6 +1,6 @@
 import sentencepiece as spm
 
-class TextEncoder:
+class TextDecoder:
 
     def Setup(self):
         model_de = '/home/oscar/sdb3/data/wmt16_de_en/m_de.model'

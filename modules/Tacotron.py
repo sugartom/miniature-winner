@@ -1,4 +1,6 @@
+import sys
 import tensorflow as tf
+sys.path.append('/home/oscar/git/miniature-winner/')
 from open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
     create_logdir, create_model
 
@@ -10,13 +12,13 @@ def get_model(args, scope):
             args, base_config, config_module, base_model, None)
     return model, checkpoint
 
-
-class Text2Speech:
+ 
+class Tacotron:
 
     def Setup(self):
-        args_T2S = ["--config_file=example_configs/text2speech/tacotron_LJ_float.py",
+        args_T2S = ["--config_file=../example_configs/text2speech/tacotron_LJ_float.py",
                     "--mode=interactive_infer",
-                    "--logdir=/home/oscar/filesys/tacotron-LJ-float/checkpoint/",
+                    "--logdir=../checkpoints/tacotron-LJ-float/checkpoint/",
                     "--batch_size_per_gpu=1",
                     ]
         self.model, checkpoint_T2S = get_model(args_T2S, "T2S")
@@ -46,16 +48,16 @@ class Text2Speech:
 
     def Apply(self, feed_dict):
 
-        inputs, outputs = self.sess.run(self.fetches, feed_dict=input)
+        inputs, outputs = self.sess.run(self.fetches, feed_dict=feed_dict)
 
         return inputs, outputs
 
     def PostProcess(self, inputs, outputs):
-        result = self.model.infer(inputs, outputs)
+        results = self.model.infer(inputs, outputs)
 
         audio_length = results[1][4][0]
 
-        if model_T2S.get_data_layer()._both:
+        if self.model.get_data_layer()._both:
             prediction = results[1][5][0]
 
         else:
@@ -65,3 +67,4 @@ class Text2Speech:
         mag_prediction = self.model.get_data_layer().get_magnitude_spec(prediction)
 
         return mag_prediction
+

@@ -94,57 +94,57 @@ base_params = {
     "loss_params": {},
 }
 
-train_params = {
-    "data_layer": Speech2TextDataLayer,
-    "data_layer_params": {
-        "num_audio_features": 160,
-        "input_type": "spectrogram",
-        "augmentation": {'time_stretch_ratio': 0.05,
-                         'noise_level_min': -90,
-                         'noise_level_max': -60},
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
-        "dataset_files": [
-            "data/librispeech/librivox-train-clean-100.csv",
-            "data/librispeech/librivox-train-clean-360.csv",
-            "data/librispeech/librivox-train-other-500.csv",
-        ],
-        "max_duration": None,
-        "shuffle": True,
-    },
-}
+# train_params = {
+#     "data_layer": Speech2TextDataLayer,
+#     "data_layer_params": {
+#         "num_audio_features": 160,
+#         "input_type": "spectrogram",
+#         "augmentation": {'time_stretch_ratio': 0.05,
+#                          'noise_level_min': -90,
+#                          'noise_level_max': -60},
+#         "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+#         "dataset_files": [
+#             "data/librispeech/librivox-train-clean-100.csv",
+#             "data/librispeech/librivox-train-clean-360.csv",
+#             "data/librispeech/librivox-train-other-500.csv",
+#         ],
+#         "max_duration": None,
+#         "shuffle": True,
+#     },
+# }
 
-eval_params = {
-    "data_layer": Speech2TextDataLayer,
-    "data_layer_params": {
-        "num_audio_features": 160,
-        "input_type": "spectrogram",
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
-        "dataset_files": [
-            "data/librispeech/librivox-dev-clean.csv",
-        ],
-        "shuffle": False,
-    },
-}
+# eval_params = {
+#     "data_layer": Speech2TextDataLayer,
+#     "data_layer_params": {
+#         "num_audio_features": 160,
+#         "input_type": "spectrogram",
+#         "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+#         "dataset_files": [
+#             "data/librispeech/librivox-dev-clean.csv",
+#         ],
+#         "shuffle": False,
+#     },
+# }
 
-infer_params = {
-    "data_layer": Speech2TextDataLayer,
-    "data_layer_params": {
-        "num_audio_features": 160,
-        "input_type": "spectrogram",
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
-        "dataset_files": [
-            "/home/oscar/sdb3/data/Librispeech/librivox-test-clean.csv",
-        ],
-        "shuffle": False,
-    },
-}
+# infer_params = {
+#     "data_layer": Speech2TextDataLayer,
+#     "data_layer_params": {
+#         "num_audio_features": 160,
+#         "input_type": "spectrogram",
+#         "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+#         "dataset_files": [
+#             "/home/oscar/sdb3/data/Librispeech/librivox-test-clean.csv",
+#         ],
+#         "shuffle": False,
+#     },
+# }
 
 interactive_infer_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "num_audio_features": 160,
         "input_type": "spectrogram",
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+        "vocab_file": "../open_seq2seq/test_utils/toy_speech_data/vocab.txt",
         "dataset_files": [],
         "shuffle": False,
     },
