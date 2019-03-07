@@ -16,8 +16,8 @@ message Module {
 }
 
 message ChainNode {
-    required Module module = 1;
-    required int32 node_id = 2;
+    optional Module module = 1;
+    optional int32 node_id = 2;
 
     repeated int32 successors_id = 3;
 }

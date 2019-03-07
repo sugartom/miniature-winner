@@ -1,9 +1,13 @@
 import tensorflow as tf
-
+import numpy as np
 import sys
 sys.path.append('/home/oscar/git/miniature-winner/')
 from open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
     create_logdir, create_model
+import grpc
+from tensorflow_serving.apis import predict_pb2
+from tensorflow_serving.apis import prediction_service_pb2_grpc
+from tensorflow.python.framework import tensor_util
 
 def get_model(args, scope):
     with tf.variable_scope(scope):
@@ -24,23 +28,13 @@ class Transformer:
                     ]
         self.model, checkpoint_T2T = get_model(args_T2T, "T2T")
 
-        sess_config = tf.ConfigProto(allow_soft_placement=True)
-        sess_config.gpu_options.allow_growth = True
-        self.sess = tf.Session(config=sess_config)
-
-        vars_T2T = {}
-        for v in tf.get_collection(tf.GraphKeys.VARIABLES):
-            if "T2T" in v.name:
-                vars_T2T["/".join(v.op.name.split("/")[1:])] = v
-
-        saver_T2T = tf.train.Saver(vars_T2T)
-        saver_T2T.restore(self.sess, checkpoint_T2T)
-
         self.fetches = [
             self.model.get_data_layer().input_tensors,
             self.model.get_output_tensors(),
         ]
 
+        self.channel = grpc.insecure_channel('0.0.0.0:8500')
+        self.stub = prediction_service_pb2_grpc.PredictionServiceStub(self.channel)
 
     def PreProcess(self, input):
         feed_dict = self.model.get_data_layer().create_feed_dict(input)
@@ -48,20 +42,34 @@ class Transformer:
         return feed_dict
 
     def Apply(self, feed_dict):
+        src_text = feed_dict[self.model.get_data_layer().input_tensors["source_tensors"][0]]
+        src_text_length = feed_dict[self.model.get_data_layer().input_tensors[
+            "source_tensors"][1]].astype(np.int32)
 
-        inputs, outputs = self.sess.run(self.fetches, feed_dict=feed_dict)
+        request = predict_pb2.PredictRequest()
+        request.model_spec.name = 'text2text'
+        request.model_spec.signature_name = 'predict_output'
+        request.inputs['src_text'].CopyFrom(
+            tf.contrib.util.make_tensor_proto(src_text, shape=list(src_text.shape)))
+        request.inputs['src_text_length'].CopyFrom(
+            tf.contrib.util.make_tensor_proto(src_text_length, shape=list(src_text_length.shape)))
+
+        result_future = self.stub.Predict.future(request, 5.0)  # 5 seconds
+        exception = result_future.exception()
+        if exception:
+            print(exception)
+        else:
+            print('Result returned from rpc')
+
+        tgt_txt = tensor_util.MakeNdarray(
+            result_future.result().outputs['tgt_txt'])
+
+        inputs = {"source_tensors" : [src_text, src_text_length]}
+        outputs = [tgt_txt]
 
         return inputs, outputs
 
     def PostProcess(self, inputs, outputs):
         result = self.model.infer(inputs, outputs)
 
-        return result
-
-transformer = Transformer()
-transformer.Setup()
-
-line = "I was trained using Nvidia's Open Sequence to Sequence framework."
-pre = transformer.PreProcess([line])
-app = transformer.Apply(pre)
-post = transformer.PostProcess(*app)
+        return result[1][0]

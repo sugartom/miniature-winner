@@ -3,6 +3,11 @@
 from Tacotron import Tacotron
 from Deepspeech2 import Deepspeech2
 from audio_resample import Resample
+from text_encoder import TextEncoder
+from Transformer import Transformer
+from text_decoder import TextDecoder
+
+# from jasper import Jasper
 
 # Initialize and setup all modules
 taco = Tacotron()
@@ -13,6 +18,15 @@ deepspeech.Setup()
 
 resample = Resample()
 resample.Setup()
+
+encoder = TextEncoder()
+encoder.Setup()
+
+transformer = Transformer()
+transformer.Setup()
+
+decoder = TextDecoder()
+decoder.Setup()
 
 # Input
 text = "I was trained using Nvidia's Open Sequence to Sequence framework."
@@ -30,7 +44,17 @@ pre = deepspeech.PreProcess([wav])
 app = deepspeech.Apply(pre)
 post = deepspeech.PostProcess(*app)
 
+# Encoding english text
+encoded_text = encoder.Apply(post)
+
+# Translation module
+pre = transformer.PreProcess([encoded_text])
+app = transformer.Apply(pre)
+post = transformer.PostProcess(*app)
+
+# Decoding German text
+decoded_text = decoder.Apply(post)
+
 # This part is out of the pipeline, just for debug purpose
-english_recognized = post
-print("Recognized Speech")
-print(english_recognized)
+print("Translation")
+print(decoded_text)

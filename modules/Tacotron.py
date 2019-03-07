@@ -1,8 +1,14 @@
 import sys
 import tensorflow as tf
 sys.path.append('/home/oscar/git/miniature-winner/')
+import numpy as np
 from open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
     create_logdir, create_model
+import grpc
+from tensorflow_serving.apis import predict_pb2
+from tensorflow_serving.apis import prediction_service_pb2_grpc
+from tensorflow.python.framework import tensor_util
+
 
 def get_model(args, scope):
     with tf.variable_scope(scope):
@@ -23,22 +29,13 @@ class Tacotron:
                     ]
         self.model, checkpoint_T2S = get_model(args_T2S, "T2S")
 
-        sess_config = tf.ConfigProto(allow_soft_placement=True)
-        sess_config.gpu_options.allow_growth = True
-        self.sess = tf.Session(config=sess_config)
-
-        vars_T2S = {}
-        for v in tf.get_collection(tf.GraphKeys.VARIABLES):
-            if "T2S" in v.name:
-                vars_T2S["/".join(v.op.name.split("/")[1:])] = v
-
-        saver_T2S = tf.train.Saver(vars_T2S)
-        saver_T2S.restore(self.sess, checkpoint_T2S)
-
         self.fetches = [
             self.model.get_data_layer().input_tensors,
             self.model.get_output_tensors(),
         ]
+
+        self.channel = grpc.insecure_channel('0.0.0.0:8500')
+        self.stub = prediction_service_pb2_grpc.PredictionServiceStub(self.channel)
 
 
     def PreProcess(self, input):
@@ -48,7 +45,33 @@ class Tacotron:
 
     def Apply(self, feed_dict):
 
-        inputs, outputs = self.sess.run(self.fetches, feed_dict=feed_dict)
+        text = feed_dict[self.model.get_data_layer().input_tensors["source_tensors"][0]]
+        text_length = feed_dict[self.model.get_data_layer().input_tensors[
+            "source_tensors"][1]]
+
+        request = predict_pb2.PredictRequest()
+        request.model_spec.name = 'saved_models'
+        request.model_spec.signature_name = 'predict_output'
+        request.inputs['text'].CopyFrom(
+            tf.contrib.util.make_tensor_proto(text, shape=list(text.shape)))
+        request.inputs['text_length'].CopyFrom(
+            tf.contrib.util.make_tensor_proto(text_length, shape=list(text_length.shape)))
+
+        result_future = self.stub.Predict.future(request, 5.0)  # 5 seconds
+        exception = result_future.exception()
+        if exception:
+            print(exception)
+        else:
+            print('Result returned from rpc')
+
+        audio_length = np.array(
+            result_future.result().outputs['audio_length'].int_val)
+
+        audio = tensor_util.MakeNdarray(
+            result_future.result().outputs['audio_prediction'])
+        
+        inputs = feed_dict
+        outputs = [None, None, None, None, audio_length, audio]
 
         return inputs, outputs
 
