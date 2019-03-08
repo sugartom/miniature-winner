@@ -29,7 +29,7 @@ import six
 import tensorflow as tf
 from tensorflow.python.ops import control_flow_ops
 
-from open_seq2seq.utils.utils import mask_nans, check_params
+from OpenSeq2Seq.open_seq2seq.utils.utils import mask_nans, check_params
 from .automatic_loss_scaler import AutomaticLossScaler
 from .mp_wrapper import MixedPrecisionOptimizerWrapper
 

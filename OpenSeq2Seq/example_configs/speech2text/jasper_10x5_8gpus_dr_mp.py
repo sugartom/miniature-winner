@@ -1,11 +1,11 @@
 # pylint: skip-file
 import tensorflow as tf
-from open_seq2seq.models import Speech2Text
-from open_seq2seq.encoders import TDNNEncoder
-from open_seq2seq.decoders import FullyConnectedCTCDecoder
-from open_seq2seq.data.speech2text.speech2text import Speech2TextDataLayer
-from open_seq2seq.losses import CTCLoss
-from open_seq2seq.optimizers.lr_policies import poly_decay
+from OpenSeq2Seq.open_seq2seq.models import Speech2Text
+from OpenSeq2Seq.open_seq2seq.encoders import TDNNEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import FullyConnectedCTCDecoder
+from OpenSeq2Seq.open_seq2seq.data.speech2text.speech2text import Speech2TextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import CTCLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import poly_decay
 
 ### If training with synthetic data, don't forget to add your synthetic csv
 ### to dataset files

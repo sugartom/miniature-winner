@@ -8,7 +8,7 @@ import time
 
 import tensorflow as tf
 
-from open_seq2seq.utils.utils import deco_print, log_summaries_from_dict, \
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, log_summaries_from_dict, \
                                      get_results_for_epoch
 
 

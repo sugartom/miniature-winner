@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 import numpy as np
 import tensorflow as tf
 
-from open_seq2seq.utils.utils import deco_print
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print
 from .encoder_decoder import EncoderDecoderModel
 
 

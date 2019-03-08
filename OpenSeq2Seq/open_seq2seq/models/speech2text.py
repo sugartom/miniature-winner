@@ -12,7 +12,7 @@ mpl.use('Agg')
 import matplotlib.pyplot as plt
 from io import BytesIO
 
-from open_seq2seq.utils.utils import deco_print
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print
 from .encoder_decoder import EncoderDecoderModel
 
 

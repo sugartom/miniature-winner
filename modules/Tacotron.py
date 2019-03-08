@@ -1,8 +1,6 @@
-import sys
 import tensorflow as tf
-sys.path.append('/home/oscar/git/miniature-winner/')
 import numpy as np
-from open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
     create_logdir, create_model
 import grpc
 from tensorflow_serving.apis import predict_pb2
@@ -22,9 +20,9 @@ def get_model(args, scope):
 class Tacotron:
 
     def Setup(self):
-        args_T2S = ["--config_file=../example_configs/text2speech/tacotron_LJ_float.py",
+        args_T2S = ["--config_file=OpenSeq2Seq/example_configs/text2speech/tacotron_LJ_float.py",
                     "--mode=interactive_infer",
-                    "--logdir=../checkpoints/tacotron-LJ-float/checkpoint/",
+                    "--logdir=checkpoints/tacotron-LJ-float/checkpoint/",
                     "--batch_size_per_gpu=1",
                     ]
         self.model, checkpoint_T2S = get_model(args_T2S, "T2S")

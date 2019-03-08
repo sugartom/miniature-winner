@@ -1,12 +1,12 @@
 # pylint: skip-file
 import os
 import tensorflow as tf
-from open_seq2seq.models import Text2Speech
-from open_seq2seq.encoders import Tacotron2Encoder
-from open_seq2seq.decoders import Tacotron2Decoder
-from open_seq2seq.data import Text2SpeechDataLayer
-from open_seq2seq.losses import TacotronLoss
-from open_seq2seq.optimizers.lr_policies import fixed_lr, transformer_policy, exp_decay
+from OpenSeq2Seq.open_seq2seq.models import Text2Speech
+from OpenSeq2Seq.open_seq2seq.encoders import Tacotron2Encoder
+from OpenSeq2Seq.open_seq2seq.decoders import Tacotron2Decoder
+from OpenSeq2Seq.open_seq2seq.data import Text2SpeechDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import TacotronLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import fixed_lr, transformer_policy, exp_decay
 
 
 base_model = Text2Speech

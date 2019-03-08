@@ -10,12 +10,12 @@ import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 from six.moves import range
 
-from open_seq2seq.utils.utils import deco_print, get_results_for_epoch, \
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, get_results_for_epoch, \
                                      collect_if_horovod
 from .hooks import PrintSamplesHook, RunEvaluationHook, PrintLossAndTimeHook, \
                    BroadcastGlobalVariablesHook
 from .helpers import TransferMonitoredTrainingSession, TransferScaffold
-from open_seq2seq.data import WKTDataLayer
+from OpenSeq2Seq.open_seq2seq.data import WKTDataLayer
 
 
 def train(train_model, eval_model=None, debug_port=None):

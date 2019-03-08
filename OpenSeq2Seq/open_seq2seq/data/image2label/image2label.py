@@ -10,7 +10,7 @@ import numpy as np
 import tensorflow as tf
 from six.moves import range
 
-from open_seq2seq.data.data_layer import DataLayer
+from OpenSeq2Seq.open_seq2seq.data.data_layer import DataLayer
 from .imagenet_preprocessing import parse_record
 
 

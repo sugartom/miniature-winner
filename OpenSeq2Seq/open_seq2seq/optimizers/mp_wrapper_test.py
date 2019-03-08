@@ -7,8 +7,8 @@ import numpy.testing as npt
 import tensorflow as tf
 from six.moves import range
 
-from open_seq2seq.optimizers import optimize_loss
-from open_seq2seq.optimizers.mp_wrapper import mp_regularizer_wrapper, \
+from OpenSeq2Seq.open_seq2seq.optimizers import optimize_loss
+from OpenSeq2Seq.open_seq2seq.optimizers.mp_wrapper import mp_regularizer_wrapper, \
                                                MixedPrecisionOptimizerWrapper
 from .lr_policies import fixed_lr
 

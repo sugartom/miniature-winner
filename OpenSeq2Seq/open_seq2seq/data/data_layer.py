@@ -9,7 +9,7 @@ import copy
 import six
 import tensorflow as tf
 
-from open_seq2seq.utils.utils import check_params
+from OpenSeq2Seq.open_seq2seq.utils.utils import check_params
 
 
 @six.add_metaclass(abc.ABCMeta)

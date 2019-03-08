@@ -1,12 +1,12 @@
 import tensorflow as tf
 
-from open_seq2seq.models import LSTMLM
-from open_seq2seq.encoders import LMEncoder
-from open_seq2seq.decoders import FakeDecoder
-from open_seq2seq.data import WKTDataLayer
-from open_seq2seq.parts.rnns.weight_drop import WeightDropLayerNormBasicLSTMCell
-from open_seq2seq.losses import BasicSequenceLoss
-from open_seq2seq.optimizers.lr_policies import fixed_lr
+from OpenSeq2Seq.open_seq2seq.models import LSTMLM
+from OpenSeq2Seq.open_seq2seq.encoders import LMEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import FakeDecoder
+from OpenSeq2Seq.open_seq2seq.data import WKTDataLayer
+from OpenSeq2Seq.open_seq2seq.parts.rnns.weight_drop import WeightDropLayerNormBasicLSTMCell
+from OpenSeq2Seq.open_seq2seq.losses import BasicSequenceLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import fixed_lr
 
 data_root = "[REPLACE THIS TO THE PATH WITH YOUR WikiText-2-raw DATA]"
 processed_data_folder = 'wkt2-processed-folder'

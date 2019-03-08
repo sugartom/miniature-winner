@@ -9,13 +9,13 @@ import copy
 
 import tensorflow as tf
 
-from open_seq2seq.parts.rnns.attention_wrapper import BahdanauAttention, \
+from OpenSeq2Seq.open_seq2seq.parts.rnns.attention_wrapper import BahdanauAttention, \
                                                       LuongAttention, \
                                                       AttentionWrapper
-from open_seq2seq.parts.rnns.gnmt import GNMTAttentionMultiCell, \
+from OpenSeq2Seq.open_seq2seq.parts.rnns.gnmt import GNMTAttentionMultiCell, \
                                          gnmt_residual_fn
-from open_seq2seq.parts.rnns.rnn_beam_search_decoder import BeamSearchDecoder
-from open_seq2seq.parts.rnns.utils import single_cell
+from OpenSeq2Seq.open_seq2seq.parts.rnns.rnn_beam_search_decoder import BeamSearchDecoder
+from OpenSeq2Seq.open_seq2seq.parts.rnns.utils import single_cell
 from .decoder import Decoder
 
 

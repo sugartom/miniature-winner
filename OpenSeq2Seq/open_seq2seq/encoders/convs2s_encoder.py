@@ -9,10 +9,10 @@ import tensorflow as tf
 import math
 from .encoder import Encoder
 
-from open_seq2seq.parts.transformer import embedding_layer
-from open_seq2seq.parts.transformer.utils import get_padding_bias, get_padding
-from open_seq2seq.parts.convs2s import ffn_wn_layer, conv_wn_layer
-from open_seq2seq.parts.convs2s.utils import gated_linear_units
+from OpenSeq2Seq.open_seq2seq.parts.transformer import embedding_layer
+from OpenSeq2Seq.open_seq2seq.parts.transformer.utils import get_padding_bias, get_padding
+from OpenSeq2Seq.open_seq2seq.parts.convs2s import ffn_wn_layer, conv_wn_layer
+from OpenSeq2Seq.open_seq2seq.parts.convs2s.utils import gated_linear_units
 
 # Default value used if max_input_length is not given
 MAX_INPUT_LENGTH = 128

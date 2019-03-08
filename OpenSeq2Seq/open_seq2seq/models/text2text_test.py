@@ -6,7 +6,7 @@ import runpy
 
 import tensorflow as tf
 
-from open_seq2seq.test_utils.create_reversed_examples import create_data, \
+from OpenSeq2Seq.open_seq2seq.test_utils.create_reversed_examples import create_data, \
                                                              remove_data
 
 

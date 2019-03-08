@@ -1,8 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import sys
-sys.path.append('/home/oscar/git/miniature-winner/')
-from open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
     create_logdir, create_model
 import grpc
 from tensorflow_serving.apis import predict_pb2
@@ -21,7 +19,7 @@ def get_model(args, scope):
 class Transformer:
 
     def Setup(self):
-        args_T2T = ["--config_file=../example_configs/text2text/en-de/transformer-bp-fp32.py",
+        args_T2T = ["--config_file=OpenSeq2Seq/example_configs/text2text/en-de/transformer-bp-fp32.py",
                     "--mode=interactive_infer",
                     "--logdir=/home/oscar/filesys/transformer-base/Transformer-FP32-H-256",
                     "--batch_size_per_gpu=1",

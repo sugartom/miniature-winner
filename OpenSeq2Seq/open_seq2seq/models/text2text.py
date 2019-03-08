@@ -9,8 +9,8 @@ import nltk
 import tensorflow as tf
 from six.moves import range
 
-from open_seq2seq.data.text2text.text2text import SpecialTextTokens
-from open_seq2seq.utils.utils import deco_print, array_to_string, \
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import SpecialTextTokens
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, array_to_string, \
                                      text_ids_to_string
 from .encoder_decoder import EncoderDecoderModel
 

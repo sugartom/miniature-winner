@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 
-from open_seq2seq.models.model import Model
-from open_seq2seq.utils.utils import deco_print
+from OpenSeq2Seq.open_seq2seq.models.model import Model
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print
 
 class EncoderDecoderModel(Model):
   """

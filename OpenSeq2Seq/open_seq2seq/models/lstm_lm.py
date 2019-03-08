@@ -3,9 +3,9 @@ import numpy as np
 import tensorflow as tf
 
 from .encoder_decoder import EncoderDecoderModel
-from open_seq2seq.data import WKTDataLayer
-from open_seq2seq.utils.utils import deco_print, array_to_string
-from open_seq2seq.utils import metrics
+from OpenSeq2Seq.open_seq2seq.data import WKTDataLayer
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, array_to_string
+from OpenSeq2Seq.open_seq2seq.utils import metrics
 
 class LSTMLM(EncoderDecoderModel):
   """

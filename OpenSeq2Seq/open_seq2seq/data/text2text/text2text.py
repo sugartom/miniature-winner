@@ -6,10 +6,10 @@ import numpy as np
 import tensorflow as tf
 import os
 from enum import Enum
-from open_seq2seq.data.data_layer import DataLayer
-from open_seq2seq.data.utils import load_pre_existing_vocabulary, pad_vocab_to_eight
-from open_seq2seq.data.text2text.t2t import _read_and_batch_from_files
-from open_seq2seq.data.text2text.tokenizer import PAD_ID
+from OpenSeq2Seq.open_seq2seq.data.data_layer import DataLayer
+from OpenSeq2Seq.open_seq2seq.data.utils import load_pre_existing_vocabulary, pad_vocab_to_eight
+from OpenSeq2Seq.open_seq2seq.data.text2text.t2t import _read_and_batch_from_files
+from OpenSeq2Seq.open_seq2seq.data.text2text.tokenizer import PAD_ID
 
 
 class SpecialTextTokens(Enum):

@@ -3,17 +3,17 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 
-from open_seq2seq.models import Text2Text
-from open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
-from open_seq2seq.data.text2text.text2text import SpecialTextTokens
-from open_seq2seq.data.text2text.tokenizer import EOS_ID
+from OpenSeq2Seq.open_seq2seq.models import Text2Text
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import SpecialTextTokens
+from OpenSeq2Seq.open_seq2seq.data.text2text.tokenizer import EOS_ID
 
-from open_seq2seq.encoders import ConvS2SEncoder
-from open_seq2seq.decoders import ConvS2SDecoder
+from OpenSeq2Seq.open_seq2seq.encoders import ConvS2SEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import ConvS2SDecoder
 
-from open_seq2seq.losses import BasicSequenceLoss
-from open_seq2seq.optimizers.lr_policies import transformer_policy
-from open_seq2seq.parts.convs2s.utils import gated_linear_units
+from OpenSeq2Seq.open_seq2seq.losses import BasicSequenceLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import transformer_policy
+from OpenSeq2Seq.open_seq2seq.parts.convs2s.utils import gated_linear_units
 
 import math
 """

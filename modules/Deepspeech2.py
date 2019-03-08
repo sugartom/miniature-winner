@@ -1,7 +1,6 @@
 import tensorflow as tf
-from open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, get_base_config, check_logdir,\
     create_logdir, create_model
-import data_pb2
 import grpc
 from tensorflow_serving.apis import predict_pb2
 from tensorflow_serving.apis import prediction_service_pb2_grpc
@@ -19,9 +18,9 @@ def get_model(args, scope):
 class Deepspeech2:
 
     def Setup(self):
-        args_S2T = ["--config_file=../example_configs/speech2text/ds2_large_8gpus_mp.py",
+        args_S2T = ["--config_file=OpenSeq2Seq/example_configs/speech2text/ds2_large_8gpus_mp.py",
                     "--mode=interactive_infer",
-                    "--logdir=../checkpoints/ds2_large/",
+                    "--logdir=checkpoints/ds2_large/",
                     "--batch_size_per_gpu=1",
                     ]
         self.model, checkpoint_S2T = get_model(args_S2T, "S2T")

@@ -11,8 +11,8 @@ import pandas as pd
 
 from six import string_types
 
-from open_seq2seq.data.data_layer import DataLayer
-from open_seq2seq.data.utils import load_pre_existing_vocabulary
+from OpenSeq2Seq.open_seq2seq.data.data_layer import DataLayer
+from OpenSeq2Seq.open_seq2seq.data.utils import load_pre_existing_vocabulary
 from .speech_utils import get_speech_features_from_file,\
                           inverse_mel, normalize, denormalize
 

@@ -1,12 +1,12 @@
 # pylint: skip-file
 from __future__ import absolute_import, division, print_function
 import tensorflow as tf
-from open_seq2seq.models import Speech2Text
-from open_seq2seq.encoders import Wave2LetterEncoder
-from open_seq2seq.decoders import FullyConnectedCTCDecoder
-from open_seq2seq.data import Speech2TextDataLayer
-from open_seq2seq.losses import CTCLoss
-from open_seq2seq.optimizers.lr_policies import poly_decay
+from OpenSeq2Seq.open_seq2seq.models import Speech2Text
+from OpenSeq2Seq.open_seq2seq.encoders import Wave2LetterEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import FullyConnectedCTCDecoder
+from OpenSeq2Seq.open_seq2seq.data import Speech2TextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import CTCLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import poly_decay
 
 
 base_model = Speech2Text

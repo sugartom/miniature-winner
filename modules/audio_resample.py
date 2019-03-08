@@ -1,8 +1,6 @@
 import librosa
-import sys
-sys.path.append('/home/oscar/git/miniature-winner/')
 
-from open_seq2seq.models.text2speech import save_audio
+from OpenSeq2Seq.open_seq2seq.models.text2speech import save_audio
 
 
 class Resample:

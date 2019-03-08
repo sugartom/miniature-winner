@@ -4,8 +4,8 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 
-from open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
-from open_seq2seq.test_utils.create_reversed_examples import create_data, \
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
+from OpenSeq2Seq.open_seq2seq.test_utils.create_reversed_examples import create_data, \
                                                              remove_data
 
 

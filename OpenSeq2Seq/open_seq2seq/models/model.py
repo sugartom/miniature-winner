@@ -16,9 +16,9 @@ try:
 except ImportError:
   from funcsigs import signature
 
-from open_seq2seq.utils.utils import deco_print, clip_last_batch
-from open_seq2seq.optimizers import optimize_loss, get_regularization_loss
-from open_seq2seq.utils.utils import check_params
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print, clip_last_batch
+from OpenSeq2Seq.open_seq2seq.optimizers import optimize_loss, get_regularization_loss
+from OpenSeq2Seq.open_seq2seq.utils.utils import check_params
 
 
 @six.add_metaclass(abc.ABCMeta)

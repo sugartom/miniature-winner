@@ -1,12 +1,12 @@
 import tensorflow as tf
 
-from open_seq2seq.models import LSTMLM
-from open_seq2seq.encoders import LMEncoder
-from open_seq2seq.decoders import FakeDecoder
-from open_seq2seq.data import SSTDataLayer
-from open_seq2seq.parts.rnns.weight_drop import WeightDropLayerNormBasicLSTMCell
-from open_seq2seq.losses import BasicSequenceLoss, CrossEntropyLoss
-from open_seq2seq.optimizers.lr_policies import fixed_lr
+from OpenSeq2Seq.open_seq2seq.models import LSTMLM
+from OpenSeq2Seq.open_seq2seq.encoders import LMEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import FakeDecoder
+from OpenSeq2Seq.open_seq2seq.data import SSTDataLayer
+from OpenSeq2Seq.open_seq2seq.parts.rnns.weight_drop import WeightDropLayerNormBasicLSTMCell
+from OpenSeq2Seq.open_seq2seq.losses import BasicSequenceLoss, CrossEntropyLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import fixed_lr
 
 base_model = LSTMLM
 steps = 10

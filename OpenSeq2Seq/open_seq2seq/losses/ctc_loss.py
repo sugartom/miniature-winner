@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 
-from open_seq2seq.utils.utils import mask_nans, deco_print
+from OpenSeq2Seq.open_seq2seq.utils.utils import mask_nans, deco_print
 from .loss import Loss
 
 

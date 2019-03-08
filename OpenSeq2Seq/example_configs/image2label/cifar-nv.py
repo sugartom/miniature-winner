@@ -1,10 +1,10 @@
 # pylint: skip-file
-from open_seq2seq.models import Image2Label
-from open_seq2seq.encoders.cnn_encoder import CNNEncoder
-from open_seq2seq.decoders import FullyConnectedDecoder
-from open_seq2seq.losses import CrossEntropyLoss
-from open_seq2seq.data.image2label.image2label import CifarDataLayer
-from open_seq2seq.optimizers.lr_policies import poly_decay
+from OpenSeq2Seq.open_seq2seq.models import Image2Label
+from OpenSeq2Seq.open_seq2seq.encoders.cnn_encoder import CNNEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import FullyConnectedDecoder
+from OpenSeq2Seq.open_seq2seq.losses import CrossEntropyLoss
+from OpenSeq2Seq.open_seq2seq.data.image2label.image2label import CifarDataLayer
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import poly_decay
 import tensorflow as tf
 
 

@@ -8,14 +8,14 @@ from __future__ import unicode_literals
 import tensorflow as tf
 from tensorflow.python.framework import ops
 
-from open_seq2seq.parts.rnns.utils import single_cell
-from open_seq2seq.parts.rnns.attention_wrapper import BahdanauAttention, \
+from OpenSeq2Seq.open_seq2seq.parts.rnns.utils import single_cell
+from OpenSeq2Seq.open_seq2seq.parts.rnns.attention_wrapper import BahdanauAttention, \
                                                  LocationSensitiveAttention, \
                                                  AttentionWrapper
-from open_seq2seq.parts.tacotron.tacotron_helper import TacotronHelper, \
+from OpenSeq2Seq.open_seq2seq.parts.tacotron.tacotron_helper import TacotronHelper, \
                                                         TacotronTrainingHelper
-from open_seq2seq.parts.tacotron.tacotron_decoder import TacotronDecoder
-from open_seq2seq.parts.cnns.conv_blocks import conv_bn_actv
+from OpenSeq2Seq.open_seq2seq.parts.tacotron.tacotron_decoder import TacotronDecoder
+from OpenSeq2Seq.open_seq2seq.parts.cnns.conv_blocks import conv_bn_actv
 from .decoder import Decoder
 
 

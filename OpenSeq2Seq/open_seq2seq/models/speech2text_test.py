@@ -12,8 +12,8 @@ import pandas as pd
 import tensorflow as tf
 from six.moves import range
 
-from open_seq2seq.utils import train, evaluate, infer
-from open_seq2seq.utils.utils import get_available_gpus
+from OpenSeq2Seq.open_seq2seq.utils import train, evaluate, infer
+from OpenSeq2Seq.open_seq2seq.utils.utils import get_available_gpus
 from .speech2text import levenshtein
 
 

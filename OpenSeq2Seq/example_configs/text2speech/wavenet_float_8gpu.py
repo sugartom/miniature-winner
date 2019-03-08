@@ -1,12 +1,12 @@
 # pylint: skip-file
 import tensorflow as tf
-from open_seq2seq.models import Text2SpeechWavenet
-from open_seq2seq.encoders import WavenetEncoder
-from open_seq2seq.decoders import FakeDecoder
-from open_seq2seq.losses import WavenetLoss
-from open_seq2seq.data import WavenetDataLayer
-from open_seq2seq.optimizers.lr_policies import exp_decay
-from open_seq2seq.parts.convs2s.utils import gated_linear_units
+from OpenSeq2Seq.open_seq2seq.models import Text2SpeechWavenet
+from OpenSeq2Seq.open_seq2seq.encoders import WavenetEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import FakeDecoder
+from OpenSeq2Seq.open_seq2seq.losses import WavenetLoss
+from OpenSeq2Seq.open_seq2seq.data import WavenetDataLayer
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import exp_decay
+from OpenSeq2Seq.open_seq2seq.parts.convs2s.utils import gated_linear_units
 
 base_model = Text2SpeechWavenet
 

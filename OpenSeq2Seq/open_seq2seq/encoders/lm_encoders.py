@@ -8,10 +8,10 @@ from __future__ import unicode_literals
 import copy, inspect
 import tensorflow as tf
 from tensorflow.contrib.cudnn_rnn.python.ops import cudnn_rnn_ops
-from open_seq2seq.optimizers.mp_wrapper import mp_regularizer_wrapper
-from open_seq2seq.parts.rnns.utils import single_cell
+from OpenSeq2Seq.open_seq2seq.optimizers.mp_wrapper import mp_regularizer_wrapper
+from OpenSeq2Seq.open_seq2seq.parts.rnns.utils import single_cell
 from .encoder import Encoder
-# from open_seq2seq.parts.rnns.weight_drop import WeightDropLayerNormBasicLSTMCell
+# from OpenSeq2Seq.open_seq2seq.parts.rnns.weight_drop import WeightDropLayerNormBasicLSTMCell
 
 
 class LMEncoder(Encoder):

@@ -1,12 +1,12 @@
 # pylint: skip-file
 import os
 import tensorflow as tf
-from open_seq2seq.models import Text2Speech
-from open_seq2seq.encoders import Tacotron2Encoder
-from open_seq2seq.decoders import Tacotron2Decoder
-from open_seq2seq.data import Text2SpeechDataLayer
-from open_seq2seq.losses import TacotronLoss
-from open_seq2seq.optimizers.lr_policies import fixed_lr, transformer_policy, exp_decay
+from OpenSeq2Seq.open_seq2seq.models import Text2Speech
+from OpenSeq2Seq.open_seq2seq.encoders import Tacotron2Encoder
+from OpenSeq2Seq.open_seq2seq.decoders import Tacotron2Decoder
+from OpenSeq2Seq.open_seq2seq.data import Text2SpeechDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import TacotronLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import fixed_lr, transformer_policy, exp_decay
 
 
 base_model = Text2Speech
@@ -184,7 +184,7 @@ base_params = {
     "dataset": dataset,
     "num_audio_features": num_audio_features,
     "output_type": output_type,
-    "vocab_file": "../open_seq2seq/test_utils/vocab_tts.txt",
+    "vocab_file": "OpenSeq2Seq/open_seq2seq/test_utils/vocab_tts.txt",
     'dataset_location':dataset_location,
     "mag_power": 1,
     "pad_EOS": True,

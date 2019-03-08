@@ -8,7 +8,7 @@ from __future__ import unicode_literals
 import tensorflow as tf
 from tensorflow.contrib.cudnn_rnn.python.ops import cudnn_rnn_ops
 
-from open_seq2seq.parts.rnns.utils import single_cell
+from OpenSeq2Seq.open_seq2seq.parts.rnns.utils import single_cell
 from .encoder import Encoder
 
 

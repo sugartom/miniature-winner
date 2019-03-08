@@ -5,8 +5,8 @@ import numpy as np
 import tensorflow as tf
 import pandas as pd
 
-from open_seq2seq.data.data_layer import DataLayer
-from open_seq2seq.data.text2speech.speech_utils import \
+from OpenSeq2Seq.open_seq2seq.data.data_layer import DataLayer
+from OpenSeq2Seq.open_seq2seq.data.text2speech.speech_utils import \
   get_speech_features_from_file
 
 class WavenetDataLayer(DataLayer):

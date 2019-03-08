@@ -2,14 +2,14 @@
 from __future__ import absolute_import, division, print_function
 import tensorflow as tf
 
-from open_seq2seq.models import Text2Text
-from open_seq2seq.encoders import GNMTLikeEncoderWithEmbedding
-from open_seq2seq.decoders import RNNDecoderWithAttention, \
+from OpenSeq2Seq.open_seq2seq.models import Text2Text
+from OpenSeq2Seq.open_seq2seq.encoders import GNMTLikeEncoderWithEmbedding
+from OpenSeq2Seq.open_seq2seq.decoders import RNNDecoderWithAttention, \
   BeamSearchRNNDecoderWithAttention
-from open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
-from open_seq2seq.losses import BasicSequenceLoss
-from open_seq2seq.data.text2text.text2text import SpecialTextTokens
-from open_seq2seq.optimizers.lr_policies import exp_decay
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import BasicSequenceLoss
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import SpecialTextTokens
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import exp_decay
 
 data_root = "[REPLACE THIS TO THE PATH WITH YOUR WMT DATA]"
 

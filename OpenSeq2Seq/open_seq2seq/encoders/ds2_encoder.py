@@ -6,7 +6,7 @@ import tensorflow as tf
 from tensorflow.contrib.cudnn_rnn.python.ops import cudnn_rnn_ops
 from six.moves import range
 
-from open_seq2seq.parts.cnns.conv_blocks import conv_bn_actv
+from OpenSeq2Seq.open_seq2seq.parts.cnns.conv_blocks import conv_bn_actv
 from .encoder import Encoder
 
 

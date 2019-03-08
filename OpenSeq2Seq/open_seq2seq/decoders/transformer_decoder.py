@@ -7,9 +7,9 @@ from __future__ import unicode_literals
 import tensorflow as tf
 from six.moves import range
 
-from open_seq2seq.parts.transformer import utils, attention_layer, \
+from OpenSeq2Seq.open_seq2seq.parts.transformer import utils, attention_layer, \
                                            ffn_layer, beam_search
-from open_seq2seq.parts.transformer.common import PrePostProcessingWrapper, \
+from OpenSeq2Seq.open_seq2seq.parts.transformer.common import PrePostProcessingWrapper, \
                                                   LayerNormalization
 from .decoder import Decoder
 

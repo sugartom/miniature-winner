@@ -15,7 +15,7 @@ try:
 except ImportError:
   from funcsigs import signature
 
-from open_seq2seq.utils.utils import deco_print
+from OpenSeq2Seq.open_seq2seq.utils.utils import deco_print
 from .encoder import Encoder
 
 

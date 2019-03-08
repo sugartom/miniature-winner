@@ -7,10 +7,10 @@ from __future__ import unicode_literals
 import tensorflow as tf
 from six.moves import range
 
-from open_seq2seq.encoders import Encoder
-from open_seq2seq.parts.transformer import attention_layer, ffn_layer, utils, \
+from OpenSeq2Seq.open_seq2seq.encoders import Encoder
+from OpenSeq2Seq.open_seq2seq.parts.transformer import attention_layer, ffn_layer, utils, \
                                            embedding_layer
-from open_seq2seq.parts.transformer.common import PrePostProcessingWrapper, \
+from OpenSeq2Seq.open_seq2seq.parts.transformer.common import PrePostProcessingWrapper, \
                                                   LayerNormalization
 
 

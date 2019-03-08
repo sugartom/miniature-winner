@@ -1,12 +1,12 @@
 # pylint: skip-file
 from __future__ import absolute_import, division, print_function
-from open_seq2seq.models import Text2Text
-from open_seq2seq.encoders import TransformerEncoder
-from open_seq2seq.decoders import TransformerDecoder
-from open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
-from open_seq2seq.losses import PaddedCrossEntropyLossWithSmoothing
-from open_seq2seq.data.text2text.text2text import SpecialTextTokens
-from open_seq2seq.optimizers.lr_policies import transformer_policy
+from OpenSeq2Seq.open_seq2seq.models import Text2Text
+from OpenSeq2Seq.open_seq2seq.encoders import TransformerEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import TransformerDecoder
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import PaddedCrossEntropyLossWithSmoothing
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import SpecialTextTokens
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import transformer_policy
 import tensorflow as tf
 
 """

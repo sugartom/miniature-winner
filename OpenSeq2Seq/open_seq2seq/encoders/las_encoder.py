@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 import tensorflow as tf
 
 from .encoder import Encoder
-from open_seq2seq.parts.cnns.conv_blocks import conv_actv, conv_bn_actv
+from OpenSeq2Seq.open_seq2seq.parts.cnns.conv_blocks import conv_actv, conv_bn_actv
 
 cells_dict = {
     "lstm": tf.nn.rnn_cell.BasicLSTMCell,

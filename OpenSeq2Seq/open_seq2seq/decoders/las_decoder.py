@@ -4,13 +4,13 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 
-from open_seq2seq.parts.rnns.attention_wrapper import BahdanauAttention, \
+from OpenSeq2Seq.open_seq2seq.parts.rnns.attention_wrapper import BahdanauAttention, \
     LuongAttention, \
     LocationSensitiveAttention, \
     AttentionWrapper
-from open_seq2seq.parts.rnns.rnn_beam_search_decoder import BeamSearchDecoder
-from open_seq2seq.parts.rnns.utils import single_cell
-from open_seq2seq.parts.rnns.helper import TrainingHelper, GreedyEmbeddingHelper
+from OpenSeq2Seq.open_seq2seq.parts.rnns.rnn_beam_search_decoder import BeamSearchDecoder
+from OpenSeq2Seq.open_seq2seq.parts.rnns.utils import single_cell
+from OpenSeq2Seq.open_seq2seq.parts.rnns.helper import TrainingHelper, GreedyEmbeddingHelper
 from .decoder import Decoder
 
 cells_dict = {

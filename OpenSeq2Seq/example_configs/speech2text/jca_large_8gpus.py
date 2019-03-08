@@ -1,13 +1,13 @@
 # pylint: skip-file
 import tensorflow as tf
-from open_seq2seq.models import Speech2Text
-from open_seq2seq.encoders import ListenAttendSpellEncoder
-from open_seq2seq.decoders import JointCTCAttentionDecoder
-from open_seq2seq.data import Speech2TextDataLayer
-from open_seq2seq.losses import MultiTaskCTCEntropyLoss
-from open_seq2seq.optimizers.lr_policies import poly_decay
-from open_seq2seq.decoders import ListenAttendSpellDecoder
-from open_seq2seq.decoders import FullyConnectedCTCDecoder
+from OpenSeq2Seq.open_seq2seq.models import Speech2Text
+from OpenSeq2Seq.open_seq2seq.encoders import ListenAttendSpellEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import JointCTCAttentionDecoder
+from OpenSeq2Seq.open_seq2seq.data import Speech2TextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import MultiTaskCTCEntropyLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import poly_decay
+from OpenSeq2Seq.open_seq2seq.decoders import ListenAttendSpellDecoder
+from OpenSeq2Seq.open_seq2seq.decoders import FullyConnectedCTCDecoder
 
 base_model = Speech2Text
 

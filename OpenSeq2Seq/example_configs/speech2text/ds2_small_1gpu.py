@@ -1,11 +1,11 @@
 # pylint: skip-file
 import tensorflow as tf
-from open_seq2seq.models import Speech2Text
-from open_seq2seq.encoders import DeepSpeech2Encoder
-from open_seq2seq.decoders import FullyConnectedCTCDecoder
-from open_seq2seq.data import Speech2TextDataLayer
-from open_seq2seq.losses import CTCLoss
-from open_seq2seq.optimizers.lr_policies import exp_decay
+from OpenSeq2Seq.open_seq2seq.models import Speech2Text
+from OpenSeq2Seq.open_seq2seq.encoders import DeepSpeech2Encoder
+from OpenSeq2Seq.open_seq2seq.decoders import FullyConnectedCTCDecoder
+from OpenSeq2Seq.open_seq2seq.data import Speech2TextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import CTCLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import exp_decay
 
 
 base_model = Speech2Text

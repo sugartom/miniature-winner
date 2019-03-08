@@ -2,7 +2,7 @@
 
 import tensorflow as tf
 from math import ceil
-from open_seq2seq.parts.cnns.conv_blocks import conv_actv, conv_bn_actv
+from OpenSeq2Seq.open_seq2seq.parts.cnns.conv_blocks import conv_actv, conv_bn_actv
 
 from .encoder import Encoder
 

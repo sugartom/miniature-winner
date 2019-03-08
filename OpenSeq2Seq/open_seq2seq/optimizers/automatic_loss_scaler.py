@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 
-from open_seq2seq.utils.utils import check_params
+from OpenSeq2Seq.open_seq2seq.utils.utils import check_params
 
 class AutomaticLossScaler(object):
   SUPPORTED_ALGOS = ['backoff', 'logmax']
