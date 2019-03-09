@@ -7,17 +7,22 @@ from modules.text_encoder import TextEncoder
 from modules.Transformer import Transformer
 from modules.text_decoder import TextDecoder
 from modules.Jasper import Jasper
+from modules.Wave2Letter import Wave2Letter
 
 # Initialize and setup all modules
 taco = Tacotron()
 taco.Setup()
 
-#deepspeech = Deepspeech2()
-#deepspeech.Setup()
+deepspeech = Deepspeech2()
+deepspeech.Setup()
 
-jasper = Jasper()
-jasper.Setup()
-deepspeech = jasper
+# jasper = Jasper()
+# jasper.Setup()
+
+# wave2letter = Wave2Letter()
+# wave2letter.Setup()
+
+speech_recognition = deepspeech
 
 resample = Resample()
 resample.Setup()
@@ -43,21 +48,23 @@ post = taco.PostProcess(*app)
 wav = resample.Apply(post)
 
 # Speech recognition module
-pre = deepspeech.PreProcess([wav])
-app = deepspeech.Apply(pre)
-post = deepspeech.PostProcess(*app)
+pre = speech_recognition.PreProcess([wav])
+app = speech_recognition.Apply(pre)
+post = speech_recognition.PostProcess(*app)
 
-# Encoding english text
-encoded_text = encoder.Apply(post)
+print(post)
 
-# Translation module
-pre = transformer.PreProcess([encoded_text])
-app = transformer.Apply(pre)
-post = transformer.PostProcess(*app)
+# # Encoding english text
+# encoded_text = encoder.Apply(post)
 
-# Decoding German text
-decoded_text = decoder.Apply(post)
+# # Translation module
+# pre = transformer.PreProcess([encoded_text])
+# app = transformer.Apply(pre)
+# post = transformer.PostProcess(*app)
 
-# This part is out of the pipeline, just for debug purpose
-print("Translation")
-print(decoded_text)
+# # Decoding German text
+# decoded_text = decoder.Apply(post)
+
+# # This part is out of the pipeline, just for debug purpose
+# print("Translation")
+# print(decoded_text)
