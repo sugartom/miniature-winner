@@ -1,0 +1,3 @@
+[submodule "OpenSeq2Seq"]
+	path = OpenSeq2Seq
+	url = git@github.com:USC-NSL/OpenSeq2Seq.git
