@@ -7,7 +7,7 @@ from tensorflow_serving.apis import prediction_service_pb2_grpc
 from tensorflow.python.framework import tensor_util
 
 def get_model(args, scope):
-    with tf.variable_scope(scope):
+    with tf.variable_scope(scope, reuse=tf.AUTO_REUSE):
         args, base_config, base_model, config_module = get_base_config(args)
         checkpoint = check_logdir(args, base_config)
         model = create_model(

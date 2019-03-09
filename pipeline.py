@@ -6,15 +6,18 @@ from modules.audio_resample import Resample
 from modules.text_encoder import TextEncoder
 from modules.Transformer import Transformer
 from modules.text_decoder import TextDecoder
-
-# from jasper import Jasper
+from modules.Jasper import Jasper
 
 # Initialize and setup all modules
 taco = Tacotron()
 taco.Setup()
 
-deepspeech = Deepspeech2()
-deepspeech.Setup()
+#deepspeech = Deepspeech2()
+#deepspeech.Setup()
+
+jasper = Jasper()
+jasper.Setup()
+deepspeech = jasper
 
 resample = Resample()
 resample.Setup()
