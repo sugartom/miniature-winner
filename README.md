@@ -1,6 +1,6 @@
 # miniature-winner
 
-First, we needs the to install all pip requirements of NVIDIA's OpenSeq2Seq projects. The requirement file is located [here](https://github.com/USC-NSL/OpenSeq2Seq/blob/f4f56b800f53eceb4b4c30b33e20103da2a65432/requirements.txt). 
+First, we needs the to install all pip requirements of NVIDIA's OpenSeq2Seq projects. The requirement file is located [here](https://github.com/USC-NSL/OpenSeq2Seq/blob/f4f56b800f53eceb4b4c30b33e20103da2a65432/requirements.txt) and [here](https://github.com/USC-NSL/miniature-winner/blob/master/requirements.txt)
 
     pip install -U -r requirements.txt
 Then, we need to run tf-serving at port 8500. All current module will send RPC call to tf-serving at port 8500. I usually run my tf-serving using this [script](https://github.com/USC-NSL/miniature-winner/blob/master/script/run_tf_server.sh). 
