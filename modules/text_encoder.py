@@ -3,7 +3,7 @@ import sentencepiece as spm
 class TextEncoder:
 
     def Setup(self):
-        model_en = '/home/oscar/sdb3/data/wmt16_de_en/m_en.model'
+        model_en = 'checkpoints/Transformer-FP32-H-256/m_en.model'
 
         self.sp1 = spm.SentencePieceProcessor()
         self.sp1.Load(model_en)

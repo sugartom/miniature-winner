@@ -21,7 +21,7 @@ class Transformer:
     def Setup(self):
         args_T2T = ["--config_file=OpenSeq2Seq/example_configs/text2text/en-de/transformer-bp-fp32.py",
                     "--mode=interactive_infer",
-                    "--logdir=/home/oscar/filesys/transformer-base/Transformer-FP32-H-256",
+                    "--logdir=checkpoints/Transformer-FP32-H-256",
                     "--batch_size_per_gpu=1",
                     ]
         self.model, checkpoint_T2T = get_model(args_T2T, "T2T")

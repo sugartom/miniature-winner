@@ -54,17 +54,17 @@ post = speech_recognition.PostProcess(*app)
 
 print(post)
 
-# # Encoding english text
-# encoded_text = encoder.Apply(post)
+# Encoding english text
+encoded_text = encoder.Apply(post)
 
-# # Translation module
-# pre = transformer.PreProcess([encoded_text])
-# app = transformer.Apply(pre)
-# post = transformer.PostProcess(*app)
+# Translation module
+pre = transformer.PreProcess([encoded_text])
+app = transformer.Apply(pre)
+post = transformer.PostProcess(*app)
 
-# # Decoding German text
-# decoded_text = decoder.Apply(post)
+# Decoding German text
+decoded_text = decoder.Apply(post)
 
-# # This part is out of the pipeline, just for debug purpose
-# print("Translation")
-# print(decoded_text)
+# This part is out of the pipeline, just for debug purpose
+print("Translation")
+print(decoded_text)
