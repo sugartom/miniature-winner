@@ -23,7 +23,7 @@ class Jasper:
                     "--logdir=checkpoints/jasper_10x5_dr_sync/checkpoint/",
                     "--batch_size_per_gpu=1",
                     ]
-        self.model, checkpoint_S2T = get_model(args_S2T, "S2T")
+        self.model, checkpoint_S2T = get_model(args_S2T, "Jasper")
 
         self.fetches = [
             self.model.get_data_layer().input_tensors,

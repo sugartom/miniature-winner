@@ -23,7 +23,7 @@ class Wave2Letter:
                     "--logdir=checkpoints/w2l_plus_large",
                     "--batch_size_per_gpu=1",
                     ]
-        self.model, checkpoint_S2T = get_model(args_S2T, "S2T")
+        self.model, checkpoint_S2T = get_model(args_S2T, "Wave2Letter")
 
         self.fetches = [
             self.model.get_data_layer().input_tensors,
