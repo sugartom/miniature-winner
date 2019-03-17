@@ -9,21 +9,19 @@ from tensorflow.python.framework import tensor_util
 def get_model(args, scope):
     with tf.variable_scope(scope, reuse=tf.AUTO_REUSE):
         args, base_config, base_model, config_module = get_base_config(args)
-        checkpoint = check_logdir(args, base_config)
         model = create_model(
             args, base_config, config_module, base_model, None)
-    return model, checkpoint
+    return model
 
 
 class Wave2Letter:
 
     def Setup(self):
         args_S2T = ["--config_file=OpenSeq2Seq/example_configs/speech2text/w2lplus_large_8gpus_mp.py",
-                    "--mode=interactive_infer",
-                    "--logdir=checkpoints/w2l_plus_large",
+                    "--mode=tf_serving_infer",
                     "--batch_size_per_gpu=1",
                     ]
-        self.model, checkpoint_S2T = get_model(args_S2T, "Wave2Letter")
+        self.model = get_model(args_S2T, "Wave2Letter")
 
         self.fetches = [
             self.model.get_data_layer().input_tensors,
