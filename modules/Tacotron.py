@@ -45,7 +45,7 @@ class Tacotron:
             "source_tensors"][1]]
 
         request = predict_pb2.PredictRequest()
-        request.model_spec.name = 'saved_models'
+        request.model_spec.name = 'tacotron'
         request.model_spec.signature_name = 'predict_output'
         request.inputs['text'].CopyFrom(
             tf.contrib.util.make_tensor_proto(text, shape=list(text.shape)))

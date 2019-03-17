@@ -49,7 +49,7 @@ class Deepspeech2:
 
 
         request = predict_pb2.PredictRequest()
-        request.model_spec.name = 'speech2text'
+        request.model_spec.name = 'deepspeech2'
         request.model_spec.signature_name = 'predict_output'
         request.inputs['audio'].CopyFrom(
             tf.contrib.util.make_tensor_proto(audio, shape=list(audio.shape)))

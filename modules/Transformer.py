@@ -44,7 +44,7 @@ class Transformer:
             "source_tensors"][1]].astype(np.int32)
 
         request = predict_pb2.PredictRequest()
-        request.model_spec.name = 'text2text'
+        request.model_spec.name = 'transformer'
         request.model_spec.signature_name = 'predict_output'
         request.inputs['src_text'].CopyFrom(
             tf.contrib.util.make_tensor_proto(src_text, shape=list(src_text.shape)))
