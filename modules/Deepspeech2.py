@@ -9,7 +9,6 @@ from tensorflow.python.framework import tensor_util
 def get_model(args, scope):
     with tf.variable_scope(scope, reuse=tf.AUTO_REUSE):
         args, base_config, base_model, config_module = get_base_config(args)
-        # checkpoint = check_logdir(args, base_config)
         model = create_model(
             args, base_config, config_module, base_model, None)
     return model
@@ -20,7 +19,6 @@ class Deepspeech2:
     def Setup(self):
         args_S2T = ["--config_file=OpenSeq2Seq/example_configs/speech2text/ds2_large_8gpus_mp.py",
                     "--mode=tf_serving_infer",
-                    # "--logdir=checkpoints/ds2_large/",
                     "--batch_size_per_gpu=1",
                     ]
         self.model = get_model(args_S2T, "S2T")
