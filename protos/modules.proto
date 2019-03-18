@@ -1,0 +1,26 @@
+package miniature;
+
+enum DataType {
+    IMAGE = 0;
+    VIDEO = 1;
+    AUDIO = 2;
+    TEXT = 3;
+}
+
+message Module {
+    optional string module_name = 1;
+    required DataType input_type = 2;
+    required DataType output_type = 3;
+    optional bool is_gpu = 4 [default = false];
+    repeated string module_implementation = 5;
+}
+
+message ChainNode {
+    optional Module module = 1;
+    optional int32 node_id = 2;
+
+    repeated int32 successors_id = 3;
+}
+message Chain {
+    repeated ChainNode nodes = 1;
+}

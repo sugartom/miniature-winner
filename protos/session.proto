@@ -1,0 +1,35 @@
+//import "google/protobuf/duration.proto";
+import "modules.proto";
+import "data.proto";
+//import "tensorflow/tensorflow/core/framework/tensor.proto";
+
+package miniature;
+
+message SessionInitRequest {
+    // Chain definition
+    required Chain chain = 1;
+
+    message SessionRequirement {
+//        optional google.protobuf.Duration latency = 1;
+        optional uint32 throughput = 2;
+        // for video
+        optional uint32 frame_per_second = 3;
+    }
+}
+
+message SessionInitResponse {
+    required uint32 session_id = 1;
+}
+
+message InferenceData {
+    optional uint32 session_id = 1;
+
+    oneof query_data {
+        TextProto text_data = 2;
+        AudioProto audio_data = 3;
+        ImageProto image_data = 4;
+        VideoProto video_data = 5;
+    }
+
+    //optional map<string, TensorProto> meta_data = 6;
+}

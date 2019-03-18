@@ -1,0 +1,24 @@
+package miniature;
+
+message TextProto {
+    required string text = 1;
+    optional uint32 length = 2;
+    optional string encoding_method = 3;
+}
+
+message AudioProto {
+    repeated float audio = 1;
+    optional uint32 length = 2;
+    optional uint32 sample_rate = 3;
+}
+
+message ImageProto {
+    repeated uint32 image = 1;
+    optional uint32 length = 2;
+    optional uint32 encoding_method = 3;
+}
+
+message VideoProto {
+    repeated ImageProto frames = 1;
+    optional uint32 frame_rate = 2;
+}
