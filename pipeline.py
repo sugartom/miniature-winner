@@ -92,7 +92,7 @@ decoded_text = decoder.Apply(post)
 print("Translation")
 print(decoded_text)
 
-text = decoded_text
+text = decoded_text.encode("utf-8")
 
 # Speech synthesis module
 pre = taco.PreProcess([text])
