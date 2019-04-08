@@ -13,7 +13,8 @@ from modules.Convs2s import Convs2s
 
 from contextlib import contextmanager
 import time
-import _thread
+import librosa
+from OpenSeq2Seq.open_seq2seq.models.text2speech import save_audio
 
 
 @contextmanager
