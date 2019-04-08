@@ -15,10 +15,10 @@ def get_model(args, scope):
             args, base_config, config_module, base_model, None)
     return model
  
-class Tacotron:
+class Tacotron_de:
 
     def Setup(self):
-        args_T2S = ["--config_file=OpenSeq2Seq/example_configs/text2speech/tacotron_LJ_float.py",
+        args_T2S = ["--config_file=OpenSeq2Seq/example_configs/text2speech/tacotron_de_float.py",
                     "--mode=tf_serving_infer",
                     "--batch_size_per_gpu=1",
                     ]
@@ -45,7 +45,7 @@ class Tacotron:
             "source_tensors"][1]]
 
         request = predict_pb2.PredictRequest()
-        request.model_spec.name = 'tacotron'
+        request.model_spec.name = 'tacotron-de-float32'
         request.model_spec.signature_name = 'predict_output'
         request.inputs['text'].CopyFrom(
             tf.contrib.util.make_tensor_proto(text, shape=list(text.shape)))

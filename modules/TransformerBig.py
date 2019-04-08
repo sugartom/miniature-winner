@@ -7,6 +7,7 @@ from tensorflow_serving.apis import predict_pb2
 from tensorflow_serving.apis import prediction_service_pb2_grpc
 from tensorflow.python.framework import tensor_util
 
+
 def get_model(args, scope):
     with tf.variable_scope(scope, reuse=tf.AUTO_REUSE):
         args, base_config, base_model, config_module = get_base_config(args)
@@ -30,7 +31,8 @@ class TransformerBig:
         ]
 
         self.channel = grpc.insecure_channel('0.0.0.0:8500')
-        self.stub = prediction_service_pb2_grpc.PredictionServiceStub(self.channel)
+        self.stub = prediction_service_pb2_grpc.PredictionServiceStub(
+            self.channel)
 
     def PreProcess(self, input):
         feed_dict = self.model.get_data_layer().create_feed_dict(input)
@@ -38,7 +40,8 @@ class TransformerBig:
         return feed_dict
 
     def Apply(self, feed_dict):
-        src_text = feed_dict[self.model.get_data_layer().input_tensors["source_tensors"][0]]
+        src_text = feed_dict[self.model.get_data_layer().input_tensors[
+            "source_tensors"][0]]
         src_text_length = feed_dict[self.model.get_data_layer().input_tensors[
             "source_tensors"][1]].astype(np.int32)
 
@@ -50,17 +53,12 @@ class TransformerBig:
         request.inputs['src_text_length'].CopyFrom(
             tf.contrib.util.make_tensor_proto(src_text_length, shape=list(src_text_length.shape)))
 
-        result_future = self.stub.Predict.future(request, 5.0)  # 5 seconds
-        exception = result_future.exception()
-        if exception:
-            print(exception)
-        else:
-            print('Result returned from rpc')
+        result = self.stub.Predict(request, 10.0)  # 5 seconds
 
         tgt_txt = tensor_util.MakeNdarray(
-            result_future.result().outputs['tgt_txt'])
+            result.outputs['tgt_txt'])
 
-        inputs = {"source_tensors" : [src_text, src_text_length]}
+        inputs = {"source_tensors": [src_text, src_text_length]}
         outputs = [tgt_txt]
 
         return inputs, outputs

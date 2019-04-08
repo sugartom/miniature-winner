@@ -6,6 +6,7 @@ from tensorflow_serving.apis import predict_pb2
 from tensorflow_serving.apis import prediction_service_pb2_grpc
 from tensorflow.python.framework import tensor_util
 
+
 def get_model(args, scope):
     with tf.variable_scope(scope, reuse=tf.AUTO_REUSE):
         args, base_config, base_model, config_module = get_base_config(args)
@@ -29,7 +30,8 @@ class Jasper:
         ]
 
         self.channel = grpc.insecure_channel('0.0.0.0:8500')
-        self.stub = prediction_service_pb2_grpc.PredictionServiceStub(self.channel)
+        self.stub = prediction_service_pb2_grpc.PredictionServiceStub(
+            self.channel)
 
     def PreProcess(self, input):
         feed_dict = self.model.get_data_layer().create_feed_dict(input)
@@ -44,7 +46,6 @@ class Jasper:
         x_id = feed_dict[self.model.get_data_layer().input_tensors[
             "source_ids"][0]]
 
-
         request = predict_pb2.PredictRequest()
         request.model_spec.name = 'jasper'
         request.model_spec.signature_name = 'predict_output'
@@ -57,27 +58,21 @@ class Jasper:
             tf.contrib.util.make_tensor_proto(x_id,
                                               shape=list(x_id.shape)))
 
-        result_future = self.stub.Predict.future(request, 5.0)  # 5 seconds
-        exception = result_future.exception()
-        if exception:
-            print(exception)
-        else:
-            print('Result returned from rpc')
+        result = self.stub.Predict.future(request, 5.0)  # 5 seconds
 
         inputs = self.model.get_data_layer().input_tensors
         indices_decoded_sequence = tensor_util.MakeNdarray(
-            result_future.result().outputs['indices_decoded_sequence'])
+            result.outputs['indices_decoded_sequence'])
         values_decoded_sequence = tensor_util.MakeNdarray(
-            result_future.result().outputs['values_decoded_sequence'])
+            result.outputs['values_decoded_sequence'])
         dense_shape_decoded_sequence = tensor_util.MakeNdarray(
-            result_future.result().outputs['dense_shape_decoded_sequence'])
+            result.outputs['dense_shape_decoded_sequence'])
 
         outputs = tf.SparseTensorValue(indices=indices_decoded_sequence,
                                        values=values_decoded_sequence,
                                        dense_shape=dense_shape_decoded_sequence)
 
         outputs = [outputs]
-
 
         return inputs, outputs
 
