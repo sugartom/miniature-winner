@@ -56,7 +56,7 @@ class Convs2s:
         result = self.stub.Predict(request, 5.0)  # 5 seconds
 
         tgt_txt = tensor_util.MakeNdarray(
-            result_future.outputs['tgt_txt'])
+            result.outputs['tgt_txt'])
 
         inputs = {"source_tensors": [src_text, src_text_length]}
         outputs = [tgt_txt]
