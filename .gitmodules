@@ -4,3 +4,6 @@
 [submodule "PRNet"]
 	path = PRNet
 	url = git@github.com:sugartom/PRNet.git
+[submodule "tensorflow_face_detection"]
+	path = tensorflow_face_detection
+	url = https://github.com/USC-NSL/tensorflow-face-detection.git
