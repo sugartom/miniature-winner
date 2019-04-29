@@ -3,7 +3,7 @@
 	url = git@github.com:USC-NSL/OpenSeq2Seq.git
 [submodule "PRNet"]
 	path = PRNet
-	url = git@github.com:sugartom/PRNet.git
+	url = git@github.com:USC-NSL/PRNet.git
 [submodule "tensorflow_face_detection"]
 	path = tensorflow_face_detection
 	url = https://github.com/USC-NSL/tensorflow-face-detection.git
