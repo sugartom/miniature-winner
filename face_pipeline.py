@@ -50,22 +50,24 @@ while frame_num:
     face_detector.Apply()
     prnet_request = face_detector.PostProcess()
     elapsed_time = time.time() - start_time
+    print('face_detector time cost: {}'.format(elapsed_time))
 
     if "bounding_box" in prnet_request.inputs:
+        start_time = time.time()
     	prnet_image_cropper = PRNetImageCropper()
     	prnet_image_cropper.PreProcess(prnet_request, stub)
     	prnet_image_cropper.Apply()
-    	next_request = prnet_image_cropper.PostProcess();
-
+    	next_request = prnet_image_cropper.PostProcess()
+        elapsed_time = time.time() - start_time
+        print('prnet_image_cropper time cost: {}'.format(elapsed_time))
 
         prn = PRNet()
         start_time = time.time()
         prn.PreProcess(next_request, stub)
-        elapsed_time = time.time() - start_time
-        print('prnet time cost: {}'.format(elapsed_time))
         prn.Apply()
         final_request = prn.PostProcess();
-
+        elapsed_time = time.time() - start_time
+        print('prnet time cost: {}'.format(elapsed_time))
 
         kpt = tensor_util.MakeNdarray(final_request.inputs["prnet_output"])
         out.write(plot_kpt(image, kpt))

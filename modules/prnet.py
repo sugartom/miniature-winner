@@ -13,6 +13,7 @@ class PRNet:
     # DST_PTS = np.array(
     #     [[0, 0], [0, resolution_inp - 1], [resolution_inp - 1, 0]])
     uv_kpt_ind = None
+    face_ind = None
 
     @staticmethod
     def Setup():
@@ -20,6 +21,8 @@ class PRNet:
 
         PRNet.uv_kpt_ind = np.loadtxt(
             prefix + '/PRNet/Data/uv-data/uv_kpt_ind.txt').astype(np.int32)  # 2 x 68 get kpt
+        PRNet.face_ind = np.loadtxt(
+            prefix + '/PRNet/Data/uv-data/face_ind.txt').astype(np.int32)
 
     def PreProcess(self, request, istub):
     	self.chain_name = request.model_spec.name
@@ -57,9 +60,13 @@ class PRNet:
             vertices.T, [PRNet.resolution_op, PRNet.resolution_op, 3])
 
         key_points = pos[self.uv_kpt_ind[1, :], self.uv_kpt_ind[0, :], :]
+        all_vertices = np.reshape(pos, [self.resolution_op**2, -1])
+        vertices = all_vertices[self.face_ind, :]
 
         next_request = predict_pb2.PredictRequest()
         next_request.inputs['prnet_output'].CopyFrom(
           tf.make_tensor_proto(key_points))
+        next_request.inputs['vertices'].CopyFrom(
+          tf.make_tensor_proto(vertices))
 
         return next_request
