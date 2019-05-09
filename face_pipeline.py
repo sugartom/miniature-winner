@@ -10,9 +10,11 @@ from modules.face_detector import FaceDetector
 import tensorflow as tf
 
 # For plotting
-from PRNet.utils.cv_plot import plot_kpt
+from PRNet.utils.cv_plot import plot_kpt, plot_vertices
 
 import time
+import numpy as np
+import pymesh
 
 channel = grpc.insecure_channel('0.0.0.0:8500')
 stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
@@ -29,6 +31,7 @@ frame_height = int(cap.get(4))
 
 
 out = None
+depth_out = None
 frame_num = 1490
 ind = 0
 while frame_num:
@@ -39,6 +42,8 @@ while frame_num:
     if out is None:
         out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(
             'M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
+        # depth_out = cv2.VideoWriter('output_depth.avi', cv2.VideoWriter_fourcc(
+        #     'M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
 
     next_request = predict_pb2.PredictRequest()
     next_request.inputs['input_image'].CopyFrom(
@@ -70,7 +75,12 @@ while frame_num:
         print('prnet time cost: {}'.format(elapsed_time))
 
         kpt = tensor_util.MakeNdarray(final_request.inputs["prnet_output"])
-        out.write(plot_kpt(image, kpt))
+        vertices = tensor_util.MakeNdarray(final_request.inputs["vertices"])
+
+        start_time = time.time()
+        out.write(plot_vertices(np.zeros_like(image), vertices))
+        elapsed_time = time.time() - start_time
+
     else:
         out.write(image)
 
