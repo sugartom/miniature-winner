@@ -1,9 +1,9 @@
 [submodule "OpenSeq2Seq"]
 	path = OpenSeq2Seq
-	url = git@github.com:USC-NSL/OpenSeq2Seq.git
+	url = git@github.com:sugartom/OpenSeq2Seq.git
 [submodule "PRNet"]
 	path = PRNet
-	url = git@github.com:USC-NSL/PRNet.git
-[submodule "tensorflow_face_detection"]
-	path = tensorflow_face_detection
-	url = https://github.com/USC-NSL/tensorflow-face-detection.git
+	url = git@github.com:sugartom/PRNet.git
+[submodule "tensorflow-face-detection"]
+	path = tensorflow-face-detection
+	url = git@github.com:sugartom/tensorflow-face-detection.git
