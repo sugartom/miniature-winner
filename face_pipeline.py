@@ -24,26 +24,33 @@ PRNet.Setup()
 FaceDetector.Setup()
 PRNetImageCropper.Setup()
 
-
-cap = cv2.VideoCapture("./tensorflow_face_detection/media/test.mp4")
+cap = cv2.VideoCapture("./IMG_0003.mov")
+# cap = cv2.VideoCapture("/home/yitao/Documents/fun-project/tensorflow-related/Caesar-Edge/indoor_two_ppl.avi")
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
-
 
 out = None
 depth_out = None
 frame_num = 1490
 ind = 0
+
+useful_result = 0
+
 while frame_num:
     frame_num -= 1
     ret, image = cap.read()
     if ret == 0:
+        print("End of Video...")
         break
     if out is None:
-        out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(
+        # out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(
+        #     'M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
+        out = cv2.VideoWriter('output.avi', cv2.cv.CV_FOURCC(
             'M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
         # depth_out = cv2.VideoWriter('output_depth.avi', cv2.VideoWriter_fourcc(
         #     'M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
+
+    print(image.shape)
 
     next_request = predict_pb2.PredictRequest()
     next_request.inputs['input_image'].CopyFrom(
@@ -77,10 +84,16 @@ while frame_num:
         kpt = tensor_util.MakeNdarray(final_request.inputs["prnet_output"])
         vertices = tensor_util.MakeNdarray(final_request.inputs["vertices"])
 
+        print(vertices)
+        break
+        useful_result += 1
+
         start_time = time.time()
         out.write(plot_vertices(np.zeros_like(image), vertices))
         elapsed_time = time.time() - start_time
 
     else:
         out.write(image)
+
+print("In total, there are %d useful results." % useful_result)
 
