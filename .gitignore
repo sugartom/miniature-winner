@@ -114,3 +114,14 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+models/tf_servable/conv_s2s
+models/tf_servable/deepspeech2
+models/tf_servable/exported_prnet
+models/tf_servable/face_detector
+models/tf_servable/jasper
+models/tf_servable/tacotron
+models/tf_servable/tacotron_de
+models/tf_servable/transformer
+models/tf_servable/transformer_big
+models/tf_servable/wave2letter
