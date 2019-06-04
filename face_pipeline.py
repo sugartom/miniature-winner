@@ -29,6 +29,9 @@ cap = cv2.VideoCapture("./IMG_0003.mov")
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
+print(frame_width)
+print(frame_height)
+
 out = None
 depth_out = None
 frame_num = 1490
@@ -65,11 +68,13 @@ while frame_num:
     print('face_detector time cost: {}'.format(elapsed_time))
 
     if "bounding_box" in prnet_request.inputs:
+        useful_result += 1
+
         start_time = time.time()
-    	prnet_image_cropper = PRNetImageCropper()
-    	prnet_image_cropper.PreProcess(prnet_request, stub)
-    	prnet_image_cropper.Apply()
-    	next_request = prnet_image_cropper.PostProcess()
+      	prnet_image_cropper = PRNetImageCropper()
+      	prnet_image_cropper.PreProcess(prnet_request, stub)
+      	prnet_image_cropper.Apply()
+      	next_request = prnet_image_cropper.PostProcess()
         elapsed_time = time.time() - start_time
         print('prnet_image_cropper time cost: {}'.format(elapsed_time))
 
@@ -84,13 +89,19 @@ while frame_num:
         kpt = tensor_util.MakeNdarray(final_request.inputs["prnet_output"])
         vertices = tensor_util.MakeNdarray(final_request.inputs["vertices"])
 
-        print(vertices)
-        break
-        useful_result += 1
+        # print(vertices.shape)
+        # print(image.shape)
 
         start_time = time.time()
+
         out.write(plot_vertices(np.zeros_like(image), vertices))
+        # tmp = plot_vertices(np.zeros_like(image), vertices)
+        # print(tmp)
+        # cv2.imwrite("output/%s.jpg" % str(useful_result).zfill(3), tmp)
+
         elapsed_time = time.time() - start_time
+
+        # break
 
     else:
         out.write(image)
