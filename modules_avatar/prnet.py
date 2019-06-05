@@ -18,7 +18,7 @@ class PRNet:
 
     @staticmethod
     def Setup():
-        prefix='.'
+        prefix='/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/'
 
         PRNet.uv_kpt_ind = np.loadtxt(
             prefix + '/PRNet/Data/uv-data/uv_kpt_ind.txt').astype(np.int32)  # 2 x 68 get kpt
