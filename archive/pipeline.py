@@ -1,15 +1,15 @@
 # A simple speech synthesis and speech recognition pipeline
 
-from modules.Tacotron_de import Tacotron_de
-from modules.Deepspeech2 import Deepspeech2
-from modules.audio_resample import Resample
-from modules.text_encoder import TextEncoder
-from modules.Transformer import Transformer
-from modules.text_decoder import TextDecoder
-from modules.Jasper import Jasper
-from modules.Wave2Letter import Wave2Letter
-from modules.TransformerBig import TransformerBig
-from modules.Convs2s import Convs2s
+from modules_avatar.Tacotron_de import Tacotron_de
+from modules_avatar.Deepspeech2 import Deepspeech2
+from modules_avatar.audio_resample import Resample
+from modules_avatar.text_encoder import TextEncoder
+from modules_avatar.Transformer import Transformer
+from modules_avatar.text_decoder import TextDecoder
+from modules_avatar.Jasper import Jasper
+from modules_avatar.Wave2Letter import Wave2Letter
+from modules_avatar.TransformerBig import TransformerBig
+from modules_avatar.Convs2s import Convs2s
 
 from contextlib import contextmanager
 import time
@@ -67,7 +67,7 @@ decoder.Setup()
 
 # Input
 # Input
-input_audio, sr = librosa.load('/home/oscar/sdb3/data/Librispeech/LibriSpeech/test-clean-wav/1320-122617-0012.wav')
+input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
 
 wav = input_audio
 
@@ -99,6 +99,6 @@ pre = taco.PreProcess([text])
 app = taco.Apply(pre)
 post = taco.PostProcess(*app)
 
-wav = save_audio(post, "unused", "unused", sampling_rate=16000, save_format="np.array", n_fft=800)
+wav = save_audio(post, "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs", "unused", sampling_rate=16000, save_format="disk", n_fft=800)
 # This part is out of the pipeline, just for debug purpose
 

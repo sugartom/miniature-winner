@@ -1,5 +1,9 @@
-
 - face pipeline
 	tensorflow_model_server --port=8500 --platform_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/platform.conf --model_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/models_face.conf
 
 	python face_pipeline.py
+
+- audio pipeline
+	tensorflow_model_server --port=8500 --platform_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/platform.conf --model_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/models_audio.conf
+
+	python audio_pipeline.py

@@ -19,7 +19,7 @@ def get_model(args, scope):
 class Transformer:
 
     def Setup(self):
-        args_T2T = ["--config_file=OpenSeq2Seq/example_configs/text2text/en-de/transformer-bp-fp32.py",
+        args_T2T = ["--config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/OpenSeq2Seq/example_configs/text2text/en-de/transformer-bp-fp32.py",
                     "--mode=tf_serving_infer",
                     "--batch_size_per_gpu=1",
                     ]

@@ -3,7 +3,7 @@ import sentencepiece as spm
 class TextEncoder:
 
     def Setup(self):
-        model_en = 'data/translation_data/m_en.model'
+        model_en = '/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/data/translation_data/m_en.model'
 
         self.sp1 = spm.SentencePieceProcessor()
         self.sp1.Load(model_en)

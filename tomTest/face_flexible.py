@@ -26,7 +26,7 @@ FaceDetector.Setup()
 PRNetImageCropper.Setup()
 PRNet.Setup()
 
-cap = cv2.VideoCapture("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/IMG_0003.mov")
+cap = cv2.VideoCapture("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/IMG_0003.mov")
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
