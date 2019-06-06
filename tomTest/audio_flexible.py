@@ -6,14 +6,15 @@ tf.logging.set_verbosity(tf.logging.ERROR)
 import sys
 sys.path.append('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/')
 
-from modules_avatar.Tacotron_de import Tacotron_de
+from modules_avatar.Wave2Letter_flexible import Wave2Letter
+from modules_avatar.text_encoder_flexible import TextEncoder
+from modules_avatar.Transformer_flexible import Transformer
+from modules_avatar.text_decoder_flexible import TextDecoder
+from modules_avatar.Tacotron_de_flexible import Tacotron_de
+
 from modules_avatar.Deepspeech2 import Deepspeech2
 from modules_avatar.audio_resample import Resample
-from modules_avatar.text_encoder import TextEncoder
-from modules_avatar.Transformer import Transformer
-from modules_avatar.text_decoder import TextDecoder
 from modules_avatar.Jasper import Jasper
-from modules_avatar.Wave2Letter import Wave2Letter
 from modules_avatar.TransformerBig import TransformerBig
 from modules_avatar.Convs2s import Convs2s
 
@@ -22,33 +23,26 @@ import time
 import librosa
 from OpenSeq2Seq.open_seq2seq.models.text2speech import save_audio
 
+import grpc
+from tensorflow_serving.apis import prediction_service_pb2_grpc
 
-# @contextmanager
-# def timeit_context(name):
-#     startTime = time.time()
-#     yield
-#     elapsedTime = time.time() - startTime
-#     print('[{}] finished in {} ms'.format(name, int(elapsedTime * 1000)))
-
+ichannel = grpc.insecure_channel('0.0.0.0:8500')
+istub = prediction_service_pb2_grpc.PredictionServiceStub(ichannel)
 
 # Initialize and setup all modules
-taco = Tacotron_de()
-taco.Setup()
-
-
 # ============ Speech Recognition Modules ============
-# deepspeech = Deepspeech2()
-# deepspeech.Setup()
+deepspeech = Deepspeech2()
+deepspeech.Setup()
 
-# jasper = Jasper()
-# jasper.Setup()
+jasper = Jasper()
+jasper.Setup()
 
 wave2letter = Wave2Letter()
 wave2letter.Setup()
 
 speech_recognition = wave2letter
-# ============ Speech Recognition Modules ============
 
+# ============ Speech Recognition Modules ============
 # resample = Resample()
 # resample.Setup()
 
@@ -59,57 +53,69 @@ encoder.Setup()
 transformer = Transformer()
 transformer.Setup()
 
-# transformer_big = TransformerBig()
-# transformer_big.Setup()
+transformer_big = TransformerBig()
+transformer_big.Setup()
 
-# conv_s2s = Convs2s()
-# conv_s2s.Setup()
+conv_s2s = Convs2s()
+conv_s2s.Setup()
 
 translation = transformer
-# ============ Translation Modules ============
 
+# ============ Translation Modules ============
 decoder = TextDecoder()
 decoder.Setup()
 
-# Input
-# Input
-input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
+# ============ Speech Synthesis Modules ============
+taco = Tacotron_de()
+taco.Setup()
 
-wav = input_audio
+simple_route_table = "Wave2Letter-TextEncoder-Transformer-TextDecoder-Tacotron_de"
+route_table = simple_route_table
 
-print(wav.shape)
+sess_id = "chain_audio-000"
+frame_id = 0
 
-# Speech recognition module
-pre = speech_recognition.PreProcess([wav])
-app = speech_recognition.Apply(pre)
-post = speech_recognition.PostProcess(*app)
+while True:
+  input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
+  wav = input_audio
 
-print(post)
+  frame_info = "%s-%s" % (sess_id, frame_id)
+  route_index = 0
 
-# Encoding english text
-encoded_text = encoder.Apply(post)
+  request_input = dict()
+  request_input["client_input"] = wav
+  request_input['frame_info'] = frame_info
+  request_input['route_table'] = route_table
+  request_input['route_index'] = route_index
 
-# Translation module
-pre = translation.PreProcess([encoded_text])
-app = translation.Apply(pre)
-post = translation.PostProcess(*app)
+  for i in range(len(route_table.split('-'))):
+    current_model = route_table.split('-')[request_input['route_index']]
 
-# Decoding German text
-decoded_text = decoder.Apply(post)
+    if (current_model == "Wave2Letter"):
+      module_instance = Wave2Letter()
+    elif (current_model == "TextEncoder"):
+      module_instance = TextEncoder()
+    elif (current_model == "Transformer"):
+      module_instance = Transformer()
+    elif (current_model == "TextDecoder"):
+      module_instance = TextDecoder()
+    elif (current_model == "Tacotron_de"):
+      module_instance = Tacotron_de()
 
-print("Translation")
-print(decoded_text)
+    module_instance.PreProcess(request_input = request_input, istub = istub, grpc_flag = False)
+    module_instance.Apply()
+    next_request = module_instance.PostProcess(grpc_flag = False)
 
-text = decoded_text.encode("utf-8")
-# text = decoded_text
+    next_request['frame_info'] = request_input['frame_info']
+    next_request['route_table'] = request_input['route_table']
+    next_request['route_index'] = request_input['route_index'] + 1
 
-# Speech synthesis module
-pre = taco.PreProcess([text])
-# pre = taco.PreProcess(text)
-app = taco.Apply(pre)
-post = taco.PostProcess(*app)
+    request_input = next_request
 
-print(post.shape)
+    if (current_model == "Tacotron_de"):
+      save_audio(request_input["FINAL"], "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs", "unused", sampling_rate=16000, save_format="disk", n_fft=800)
 
-wav = save_audio(post, "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs", "unused", sampling_rate=16000, save_format="disk", n_fft=800)
-# This part is out of the pipeline, just for debug purpose
+  frame_id += 1
+
+  break
+

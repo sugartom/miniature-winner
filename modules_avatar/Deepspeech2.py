@@ -18,7 +18,7 @@ def get_model(args, scope):
 class Deepspeech2:
 
     def Setup(self):
-        args_S2T = ["--config_file=OpenSeq2Seq/example_configs/speech2text/ds2_large_8gpus_mp.py",
+        args_S2T = ["--config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/OpenSeq2Seq/example_configs/speech2text/ds2_large_8gpus_mp.py",
                     "--mode=tf_serving_infer",
                     "--batch_size_per_gpu=1",
                     ]

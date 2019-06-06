@@ -18,7 +18,7 @@ def get_model(args, scope):
 class Jasper:
 
     def Setup(self):
-        args_S2T = ["--config_file=OpenSeq2Seq/example_configs/speech2text/jasper_10x5_8gpus_dr_mp.py",
+        args_S2T = ["--config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/OpenSeq2Seq/example_configs/speech2text/jasper_10x5_8gpus_dr_mp.py",
                     "--mode=tf_serving_infer",
                     "--batch_size_per_gpu=1",
                     ]
