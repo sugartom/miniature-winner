@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 
 from tensorflow_serving.apis import predict_pb2
 from tensorflow_serving.apis import prediction_service_pb2_grpc
@@ -58,7 +59,7 @@ class PRNet:
             new_image = new_image.astype(np.float32)
 
             internal_request = predict_pb2.PredictRequest()
-            internal_request.model_spec.name = 'exported_prnet'
+            internal_request.model_spec.name = 'prnet_main'
             internal_request.model_spec.signature_name = 'predict_images'
             internal_request.inputs['input'].CopyFrom(
                 tf.contrib.util.make_tensor_proto(new_image, shape=new_image.shape))

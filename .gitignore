@@ -117,7 +117,7 @@ dmypy.json
 
 models/tf_servable/conv_s2s
 models/tf_servable/deepspeech2
-models/tf_servable/exported_prnet
+models/tf_servable/prnet_main
 models/tf_servable/face_detector
 models/tf_servable/jasper
 models/tf_servable/tacotron

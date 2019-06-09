@@ -39,6 +39,8 @@ frame_id = 0
 output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.cv.CV_FOURCC('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
 
 while True:
+  start = time.time()
+
   ret, image = cap.read()
   if (ret == 0):
     print("End of Video...")
@@ -76,5 +78,8 @@ while True:
     if (current_model == "PRNet"):
       # cv2.imwrite("tmp.jpg", request_input["FINAL"])
       output_file.write(request_input["FINAL"])
+
+  end = time.time()
+  print("duration = %s" % (end - start))
 
   frame_id += 1
