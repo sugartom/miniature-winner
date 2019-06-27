@@ -2,7 +2,6 @@ import cv2
 import grpc
 import time
 import numpy as np
-import pymesh
 
 import tensorflow as tf
 from tensorflow_serving.apis import predict_pb2
@@ -36,7 +35,8 @@ route_table = simple_route_table
 sess_id = "chain_face-000"
 frame_id = 0
 
-output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.cv.CV_FOURCC('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
+# output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.cv.CV_FOURCC('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
+output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
 
 while True:
   start = time.time()

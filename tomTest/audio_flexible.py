@@ -75,7 +75,9 @@ route_table = simple_route_table
 sess_id = "chain_audio-000"
 frame_id = 0
 
-while True:
+while (frame_id < 10):
+  start = time.time()
+
   input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
   wav = input_audio
 
@@ -115,7 +117,8 @@ while True:
     if (current_model == "Tacotron_de"):
       save_audio(request_input["FINAL"], "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs", "unused", sampling_rate=16000, save_format="disk", n_fft=800)
 
-  frame_id += 1
+  end = time.time()
+  print("duration = %s" % (end - start))
 
-  break
+  frame_id += 1
 

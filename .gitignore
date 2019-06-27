@@ -129,3 +129,5 @@ models/tf_servable/wave2letter
 output.avi
 test.avi
 outputs/
+out-*
+pickle_tmp/*
