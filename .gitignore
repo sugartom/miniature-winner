@@ -131,3 +131,4 @@ test.avi
 outputs/
 out-*
 pickle_tmp/*
+models.tar.gz

@@ -32,7 +32,7 @@ frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
 simple_route_table = "FaceDetector-PRNetImageCropper-PRNet"
-measure_module = "PRNet"
+measure_module = "FaceDetector"
 route_table = measure_module
 
 sess_id = "chain_face-000"
@@ -86,13 +86,13 @@ while (frame_id < 120):
   end = time.time()
   print("duration = %s" % (end - start))
 
-  if (measure_module == "FaceDetector"):
-    print(next_request["bounding_box"])
-  elif (measure_module == "PRNetImageCropper"):
-    print(next_request["cropped_image"])
-    print(next_request["tform_params"])
-  elif (measure_module == "PRNet"):
-    output_file.write(next_request["FINAL"])
+  # if (measure_module == "FaceDetector"):
+  #   print(next_request["bounding_box"])
+  # elif (measure_module == "PRNetImageCropper"):
+  #   print(next_request["cropped_image"])
+  #   print(next_request["tform_params"])
+  # elif (measure_module == "PRNet"):
+  #   output_file.write(next_request["FINAL"])
 
   # pickle_output = "%s/%s" % (pickle_directory, str(frame_id).zfill(3))
   # with open(pickle_output, 'w') as f:

@@ -80,7 +80,7 @@ def findPreviousModule(route_table, measure_module):
 
 
 simple_route_table = "Wave2Letter-TextEncoder-Transformer-TextDecoder-Tacotron_de"
-measure_module = "TextEncoder"
+measure_module = "Wave2Letter"
 route_table = simple_route_table
 
 sess_id = "chain_audio-000"
