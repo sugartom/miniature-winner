@@ -61,11 +61,14 @@ class Transformer:
         if (grpc_flag):
             tt = self.final_result.encode('utf-8')
             next_request = predict_pb2.PredictRequest()
-            next_request.inputs['general_transformer_output'].CopyFrom(
+            # next_request.inputs['general_transformer_output'].CopyFrom(
+            #   tf.make_tensor_proto(tt))
+            next_request.inputs['FINAL'].CopyFrom(
               tf.make_tensor_proto(tt))
 
             return next_request
         else:
             result = dict()
-            result["general_transformer_output"] = self.final_result
+            # result["general_transformer_output"] = self.final_result
+            result["FINAL"] = self.final_result
             return result

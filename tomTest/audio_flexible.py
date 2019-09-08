@@ -70,7 +70,8 @@ decoder.Setup()
 taco = Tacotron_de()
 taco.Setup()
 
-simple_route_table = "Wave2Letter-TextEncoder-TransformerBig"
+simple_route_table = "Wave2Letter-TextEncoder-Transformer"
+# simple_route_table = "Jasper-TextEncoder-TransformerBig"
 route_table = simple_route_table
 
 sess_id = "chain_audio-000"
