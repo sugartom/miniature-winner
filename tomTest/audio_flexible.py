@@ -12,10 +12,11 @@ from modules_avatar.Transformer_flexible import Transformer
 from modules_avatar.text_decoder_flexible import TextDecoder
 from modules_avatar.Tacotron_de_flexible import Tacotron_de
 
-from modules_avatar.Deepspeech2 import Deepspeech2
+from modules_avatar.Deepspeech2_flexible import Deepspeech2
+from modules_avatar.Jasper_flexible import Jasper
+from modules_avatar.TransformerBig_flexible import TransformerBig
+
 from modules_avatar.audio_resample import Resample
-from modules_avatar.Jasper import Jasper
-from modules_avatar.TransformerBig import TransformerBig
 from modules_avatar.Convs2s import Convs2s
 
 from contextlib import contextmanager
@@ -69,7 +70,7 @@ decoder.Setup()
 taco = Tacotron_de()
 taco.Setup()
 
-simple_route_table = "Wave2Letter-TextEncoder-Transformer-TextDecoder-Tacotron_de"
+simple_route_table = "Wave2Letter-TextEncoder-TransformerBig"
 route_table = simple_route_table
 
 sess_id = "chain_audio-000"
@@ -78,7 +79,8 @@ frame_id = 0
 while (frame_id < 10):
   start = time.time()
 
-  input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
+  # input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
+  input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/vlc-record-2019-09-01-11h13m06s-226-131533-0000.wav-.wav')
   wav = input_audio
 
   frame_info = "%s-%s" % (sess_id, frame_id)
@@ -95,10 +97,16 @@ while (frame_id < 10):
 
     if (current_model == "Wave2Letter"):
       module_instance = Wave2Letter()
+    elif (current_model == "Deepspeech2"):
+      module_instance = Deepspeech2()
+    elif (current_model == "Jasper"):
+      module_instance = Jasper()
     elif (current_model == "TextEncoder"):
       module_instance = TextEncoder()
     elif (current_model == "Transformer"):
       module_instance = Transformer()
+    elif (current_model == "TransformerBig"):
+      module_instance = TransformerBig()
     elif (current_model == "TextDecoder"):
       module_instance = TextDecoder()
     elif (current_model == "Tacotron_de"):
