@@ -14,11 +14,13 @@ from modules_avatar.text_encoder_flexible import TextEncoder
 from modules_avatar.Transformer_flexible import Transformer
 from modules_avatar.text_decoder_flexible import TextDecoder
 from modules_avatar.Tacotron_de_flexible import Tacotron_de
+from modules_avatar.Jasper_flexible import Jasper
+from modules_avatar.TransformerBig_flexible import TransformerBig
 
 from modules_avatar.Deepspeech2 import Deepspeech2
 from modules_avatar.audio_resample import Resample
-from modules_avatar.Jasper import Jasper
-from modules_avatar.TransformerBig import TransformerBig
+# from modules_avatar.Jasper import Jasper
+# from modules_avatar.TransformerBig import TransformerBig
 from modules_avatar.Convs2s import Convs2s
 
 from contextlib import contextmanager
@@ -79,8 +81,8 @@ def findPreviousModule(route_table, measure_module):
       return tmp[i - 1]
 
 
-simple_route_table = "Wave2Letter-TextEncoder-Transformer-TextDecoder-Tacotron_de"
-measure_module = "Wave2Letter"
+simple_route_table = "Jasper-TextEncoder-TransformerBig"
+measure_module = "Jasper"
 route_table = simple_route_table
 
 sess_id = "chain_audio-000"
@@ -90,12 +92,12 @@ pickle_directory = "/home/yitao/Documents/fun-project/tensorflow-related/miniatu
 if not os.path.exists(pickle_directory):
   os.makedirs(pickle_directory)
 
-while (frame_id < 120):
+while (frame_id < 20):
   start = time.time()
 
   # get input
-  if (measure_module == "Wave2Letter"):
-    input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
+  if (measure_module == "Wave2Letter" or measure_module == "Jasper"):
+    input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/vlc-record-2019-09-01-11h13m06s-226-131533-0000.wav-.wav')
     wav = input_audio
     frame_info = "%s-%s" % (sess_id, frame_id)
     route_index = 0
@@ -108,29 +110,33 @@ while (frame_id < 120):
     pickle_input = "%s/%s" % ("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/pickle_tmp/%s" % findPreviousModule(route_table, "TextEncoder"), str(frame_id).zfill(3))
     with open(pickle_input) as f:
       request_input = pickle.load(f)
-  elif (measure_module == "Transformer"):
+  elif (measure_module == "Transformer" or measure_module == "TransformerBig"):
     pickle_input = "%s/%s" % ("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/pickle_tmp/TextEncoder", str(frame_id).zfill(3))
     with open(pickle_input) as f:
       request_input = pickle.load(f)
-  elif (measure_module == "TextDecoder"):
-    pickle_input = "%s/%s" % ("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/pickle_tmp/%s" % findPreviousModule(route_table, "TextDecoder"), str(frame_id).zfill(3))
-    with open(pickle_input) as f:
-      request_input = pickle.load(f)
-  elif (measure_module == "Tacotron_de"):
-    pickle_input = "%s/%s" % ("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/pickle_tmp/TextDecoder", str(frame_id).zfill(3))
-    with open(pickle_input) as f:
-      request_input = pickle.load(f)
+  # elif (measure_module == "TextDecoder"):
+  #   pickle_input = "%s/%s" % ("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/pickle_tmp/%s" % findPreviousModule(route_table, "TextDecoder"), str(frame_id).zfill(3))
+  #   with open(pickle_input) as f:
+  #     request_input = pickle.load(f)
+  # elif (measure_module == "Tacotron_de"):
+  #   pickle_input = "%s/%s" % ("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/pickle_tmp/TextDecoder", str(frame_id).zfill(3))
+  #   with open(pickle_input) as f:
+  #     request_input = pickle.load(f)
 
   if (measure_module == "Wave2Letter"):
   	module_instance = Wave2Letter()
+  elif (measure_module == "Jasper"):
+    module_instance = Jasper()
   elif (measure_module == "TextEncoder"):
     module_instance = TextEncoder()
   elif (measure_module == "Transformer"):
     module_instance = Transformer()
-  elif (measure_module == "TextDecoder"):
-    module_instance = TextDecoder()
-  elif (measure_module == "Tacotron_de"):
-    module_instance = Tacotron_de()
+  elif (measure_module == "TransformerBig"):
+    module_instance = TransformerBig()
+  # elif (measure_module == "TextDecoder"):
+  #   module_instance = TextDecoder()
+  # elif (measure_module == "Tacotron_de"):
+  #   module_instance = Tacotron_de()
 
   module_instance.PreProcess(request_input = request_input, istub = istub, grpc_flag = False)
   module_instance.Apply()
@@ -143,17 +149,17 @@ while (frame_id < 120):
   end = time.time()
   print("duration = %s" % (end - start))
 
-  if (measure_module == "Wave2Letter"):
-  	print(next_request["speech_recognition_output"])
-  elif (measure_module == "TextEncoder"):
-    print(next_request["encoder_output"])
-  elif (measure_module == "Transformer"):
-    print(next_request["general_transformer_output"])
-  elif (measure_module == "TextDecoder"):
-    print(next_request["decoder_output"])
-  elif (measure_module == "Tacotron_de"):
-  	if (frame_id == 50):
-	    save_audio(next_request["FINAL"], "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs", "unused", sampling_rate=16000, save_format="disk", n_fft=800)
+  # if (measure_module == "Wave2Letter"):
+  # 	print(next_request["speech_recognition_output"])
+  # elif (measure_module == "TextEncoder"):
+  #   print(next_request["encoder_output"])
+  # elif (measure_module == "Transformer"):
+  #   print(next_request["general_transformer_output"])
+  # elif (measure_module == "TextDecoder"):
+  #   print(next_request["decoder_output"])
+  # elif (measure_module == "Tacotron_de"):
+  # 	if (frame_id == 50):
+	 #    save_audio(next_request["FINAL"], "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs", "unused", sampling_rate=16000, save_format="disk", n_fft=800)
 
   # pickle_output = "%s/%s" % (pickle_directory, str(frame_id).zfill(3))
   # with open(pickle_output, 'w') as f:
