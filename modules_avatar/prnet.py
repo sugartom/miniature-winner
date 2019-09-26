@@ -41,7 +41,7 @@ class PRNet:
         new_image = new_image.astype(np.float32)
 
         request = predict_pb2.PredictRequest()
-        request.model_spec.name = 'exported_prnet'
+        request.model_spec.name = 'prnet_main'
         request.model_spec.signature_name = 'predict_images'
         request.inputs['input'].CopyFrom(
             tf.contrib.util.make_tensor_proto(new_image, shape=new_image.shape))

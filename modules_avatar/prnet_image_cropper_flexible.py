@@ -7,7 +7,7 @@ from tensorflow_serving.apis import prediction_service_pb2_grpc
 from tensorflow.python.framework import tensor_util
 import tensorflow as tf
 
-import pickle
+# import pickle
 
 class PRNetImageCropper:
 
@@ -58,8 +58,10 @@ class PRNetImageCropper:
         self.request_input = cv2.imencode('.jpg', self.image)[1].tostring()
       
       if (self.valid_input):
-        cropped_image_output = pickle.dumps(self.cropped_image)
-        tform_params_output = pickle.dumps(self.tform.params)
+        # cropped_image_output = pickle.dumps(self.cropped_image)
+        # tform_params_output = pickle.dumps(self.tform.params)
+        cropped_image_output = self.cropped_image
+        tform_params_output = self.tform.params
         valid_input_output = "True"
       else:
         cropped_image_output = "None"

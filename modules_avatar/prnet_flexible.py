@@ -7,7 +7,7 @@ from tensorflow.python.framework import tensor_util
 import tensorflow as tf
 import time
 
-import pickle
+# import pickle
 
 import sys
 sys.path.append('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/')
@@ -40,8 +40,10 @@ class PRNet:
             return
           else:
             self.valid_input = True
-            self.tform_params = pickle.loads(tensor_util.MakeNdarray(request_input.inputs["tform_params"]))
-            self.cropped_image = pickle.loads(tensor_util.MakeNdarray(request_input.inputs["cropped_image"]))
+            # self.tform_params = pickle.loads(tensor_util.MakeNdarray(request_input.inputs["tform_params"]))
+            # self.cropped_image = pickle.loads(tensor_util.MakeNdarray(request_input.inputs["cropped_image"]))
+            self.tform_params = tensor_util.MakeNdarray(request_input.inputs["tform_params"])
+            self.cropped_image = tensor_util.MakeNdarray(request_input.inputs["cropped_image"])
         else:
           self.image = request_input["client_input"]
           if (str(request_input["valid_input"]) == "False"):
@@ -79,14 +81,16 @@ class PRNet:
             pos = np.reshape(
                 vertices.T, [PRNet.resolution_op, PRNet.resolution_op, 3])
 
-            key_points = pos[self.uv_kpt_ind[1, :], self.uv_kpt_ind[0, :], :]
+            self.key_points = pos[self.uv_kpt_ind[1, :], self.uv_kpt_ind[0, :], :]
             all_vertices = np.reshape(pos, [self.resolution_op**2, -1])
-            vertices = all_vertices[self.face_ind, :]
+            self.vertices = all_vertices[self.face_ind, :]
 
-            self.output = plot_vertices(np.zeros_like(self.image), vertices)
+            # self.output = plot_vertices(np.zeros_like(self.image), vertices)
 
         else:
-            self.output = self.image
+            # self.output = self.image
+            self.key_points = "None"
+            self.vertices = "None"
 
     def PostProcess(self, grpc_flag):
         # Unused output, maybe later...?
@@ -95,10 +99,19 @@ class PRNet:
 
         if (grpc_flag):
             next_request = predict_pb2.PredictRequest()
+            # next_request.inputs["FINAL"].CopyFrom(
+            #   tf.make_tensor_proto(cv2.imencode('.jpg', self.output)[1].tostring()))
+            # next_request.inputs["FINAL"].CopyFrom(
+            #   tf.make_tensor_proto(pickle.dumps(self.key_points)))
+            # next_request.inputs["vertices"].CopyFrom(
+            #   tf.make_tensor_proto(pickle.dumps(self.vertices)))
             next_request.inputs["FINAL"].CopyFrom(
-              tf.make_tensor_proto(cv2.imencode('.jpg', self.output)[1].tostring()))
+              tf.make_tensor_proto(self.key_points))
+            next_request.inputs["vertices"].CopyFrom(
+              tf.make_tensor_proto(self.vertices))
             return next_request
         else:
             result = dict()
-            result["FINAL"] = self.output
+            result["FINAL"] = self.key_points
+            result["vertices"] = self.vertices
             return result

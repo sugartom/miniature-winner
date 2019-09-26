@@ -32,7 +32,7 @@ frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
 simple_route_table = "FaceDetector-PRNetImageCropper-PRNet"
-measure_module = "FaceDetector"
+measure_module = "PRNet"
 route_table = measure_module
 
 sess_id = "chain_face-000"
