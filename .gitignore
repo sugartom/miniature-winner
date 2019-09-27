@@ -130,6 +130,7 @@ output.avi
 test.avi
 outputs/
 out-*
+pickle_tmp
 pickle_tmp/*
 models.tar.gz
 models
