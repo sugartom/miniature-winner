@@ -52,8 +52,8 @@ FaceDetector.Setup()
 PRNetImageCropper.Setup()
 
 
-# cap = cv2.VideoCapture("./tensorflow_face_detection/media/test.mp4")
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/IMG_0003_720.mp4")
+# cap = cv2.VideoCapture(0)
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
