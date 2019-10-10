@@ -7,3 +7,6 @@
 	tensorflow_model_server --port=8500 --platform_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/platform.conf --model_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/models_audio.conf >out-001 2>&1
 
 	python audio_flexible.py
+
+- conix demo
+  tensorflow_model_server --port=8500 --platform_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/platform.conf --model_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/conix-demo/models_conix.conf >out-001 2>&1
