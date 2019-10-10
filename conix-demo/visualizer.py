@@ -88,6 +88,7 @@ class FakeServer(prediction_service_pb2_grpc.PredictionServiceServicer):
         # audio = tensor_util.MakeNdarray(request.inputs['audio'])
         print(type(request.inputs['audio'].string_val[0]))
         audio = request.inputs['audio'].string_val[0]
+        # print(request.inputs['audio'])
         stream.write(audio)
     elif "subtitle" in request.inputs:
         print('subtitle')
@@ -116,12 +117,7 @@ def serve():
     # server.wait_for_termination()
 
 
-    stream.stop_stream()
-    stream.close()
 
-    p.terminate()
-    q.join()       # block until all tasks are donet
-    subtitles.join()
 
     _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -130,6 +126,13 @@ def serve():
         time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
       server.stop(0)
+
+    stream.stop_stream()
+    stream.close()
+
+    p.terminate()
+    q.join()       # block until all tasks are donet
+    subtitles.join()
 
 if __name__ == '__main__':
     logging.basicConfig()
