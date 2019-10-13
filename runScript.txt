@@ -9,4 +9,6 @@
 	python audio_flexible.py
 
 - conix demo
-  tensorflow_model_server --port=8500 --platform_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/platform.conf --model_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/conix-demo/models_conix.conf >out-001 2>&1
+  docker run --runtime=nvidia -it -p 50101:50101 -p 55101:55101 --name container-serving -v ~/Downloads/tmp/docker-share:/home/yitao/Downloads/tmp/docker-share sugartom/edge-publish:conix-demo
+  tensorflow_model_server --port=8500 --platform_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/models/tf_servable/platform.conf --model_config_file=/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/conix-demo/models_conix.conf >out-001 2>&1 &
+  python worker.py
