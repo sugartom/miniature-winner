@@ -2,6 +2,7 @@ from concurrent import futures
 import time
 import threading
 from Queue import Queue
+import socket
 
 import grpc
 import tensorflow as tf
@@ -127,6 +128,13 @@ class RimWorker(prediction_service_pb2_grpc.PredictionServiceServicer):
 
       return worker_response
 
+def getMyAddress():
+  s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+  s.connect(('8.8.8.8', 53))
+  myaddress = s.getsockname()[0]
+  s.close()
+  return myaddress
+
 def main(_):
   _ONE_DAY_IN_SECONDS = 60 * 60 * 24
   MAX_MESSAGE_LENGTH = 1024 * 1024 * 256
@@ -136,7 +144,7 @@ def main(_):
                                                                     ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
                                                                     ('grpc.max_message_length', MAX_MESSAGE_LENGTH)])
   prediction_service_pb2_grpc.add_PredictionServiceServicer_to_server(RimWorker(), server)
-  server.add_insecure_port("192.168.1.9:50101")
+  server.add_insecure_port("%s:50101" % getMyAddress())
   server.start()
 
   print("started worker's stub\n")
