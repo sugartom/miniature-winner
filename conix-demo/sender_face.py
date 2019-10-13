@@ -16,7 +16,7 @@ import numpy as np
 # visualize_channel = grpc.insecure_channel("localhost:50051")
 # visualize_stub = prediction_service_pb2_grpc.PredictionServiceStub(visualize_channel)
 
-worker_channel = grpc.insecure_channel("localhost:50101")
+worker_channel = grpc.insecure_channel("192.168.1.9:50101")
 worker_stub = prediction_service_pb2_grpc.PredictionServiceStub(worker_channel)
 
 # # Setup a worker to send visualization

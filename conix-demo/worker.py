@@ -35,7 +35,7 @@ class RimWorker(prediction_service_pb2_grpc.PredictionServiceServicer):
     channel = grpc.insecure_channel('localhost:8500')
     self.stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
 
-    visualize_channel = grpc.insecure_channel("localhost:50051")
+    visualize_channel = grpc.insecure_channel("192.168.1.9:50051")
     self.visualize_stub = prediction_service_pb2_grpc.PredictionServiceStub(visualize_channel)
 
     self.q = Queue()
@@ -136,7 +136,7 @@ def main(_):
                                                                     ('grpc.max_receive_message_length', MAX_MESSAGE_LENGTH),
                                                                     ('grpc.max_message_length', MAX_MESSAGE_LENGTH)])
   prediction_service_pb2_grpc.add_PredictionServiceServicer_to_server(RimWorker(), server)
-  server.add_insecure_port("localhost:50101")
+  server.add_insecure_port("192.168.1.9:50101")
   server.start()
 
   print("started worker's stub\n")
