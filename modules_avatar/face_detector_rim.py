@@ -68,9 +68,9 @@ class FaceDetector:
       next_request.inputs['norm_rois_output'].CopyFrom(
         tf.make_tensor_proto(test["norm_rois_output"]))
       next_request.inputs['actor_boxes_output'].CopyFrom(
-        tf.make_tensor_proto(test"actor_boxes_output"))
+        tf.make_tensor_proto(test["actor_boxes_output"]))
       next_request.inputs['temporal_rois_output'].CopyFrom(
-        tf.make_tensor_proto(test."temporal_rois_output"))
+        tf.make_tensor_proto(test["temporal_rois_output"]))
 
     else:
       next_request = dict()
