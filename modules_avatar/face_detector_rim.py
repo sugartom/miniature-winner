@@ -60,6 +60,8 @@ class FaceDetector:
         tf.make_tensor_proto(self.normalized_box))
 
       # debug-only
+      import pickle
+      import os
       pickle_input = "%s/%s" % ("%s/pickle_tmp/%s" % (os.environ['CAESAR_EDGE_PATH'], "TubeManager"), str(32).zfill(3))
       with open(pickle_input) as f:
         test = pickle.load(f)
