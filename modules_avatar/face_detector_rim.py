@@ -58,6 +58,14 @@ class FaceDetector:
         tf.make_tensor_proto(self.image))
       next_request.inputs['bounding_box'].CopyFrom(
         tf.make_tensor_proto(self.normalized_box))
+
+      # debug-only
+      pickle_input = "%s/%s" % ("%s/pickle_tmp/%s" % (os.environ['CAESAR_EDGE_PATH'], "TubeManager"), str(32).zfill(3))
+      with open(pickle_input) as f:
+        test = pickle.load(f)
+      next_request.inputs['test'].CopyFrom(
+        tf.make_tensor_proto(test))
+
     else:
       next_request = dict()
       next_request["client_input"] = self.image
