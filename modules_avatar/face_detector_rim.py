@@ -59,9 +59,12 @@ class FaceDetector:
       next_request.inputs['bounding_box'].CopyFrom(
         tf.make_tensor_proto(self.normalized_box))
 
-      # debug-only
-      next_request.inputs['test'].CopyFrom(
-        tf.make_tensor_proto(self.image * 100))
+      # # debug-only
+      # import sys
+      # test = self.image * 300
+      # next_request.inputs['test'].CopyFrom(
+      #   tf.make_tensor_proto(test))
+      # print("next_request.ByteSize() = %s, getsizeof(test) = %s" % (str(next_request.ByteSize()), str(sys.getsizeof(test))))
 
     else:
       next_request = dict()
