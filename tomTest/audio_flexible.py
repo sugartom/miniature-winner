@@ -77,7 +77,10 @@ route_table = simple_route_table
 sess_id = "chain_audio-000"
 frame_id = 0
 
-while (frame_id < 10):
+total = 0.0
+count = 0
+
+while (frame_id < 30):
   start = time.time()
 
   # input_audio, sr = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/226-131533-0000.wav')
@@ -127,7 +130,13 @@ while (frame_id < 10):
       save_audio(request_input["FINAL"], "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs", "unused", sampling_rate=16000, save_format="disk", n_fft=800)
 
   end = time.time()
-  print("duration = %s" % (end - start))
+  duration = end - start
+  print("duration = %f" % duration)
+
+  if (frame_id > 5):
+    count += 1
+    total += duration
 
   frame_id += 1
 
+print("on average, it takes %f sec per frame" % (total / count))
