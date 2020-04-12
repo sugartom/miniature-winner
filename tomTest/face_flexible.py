@@ -35,10 +35,13 @@ route_table = simple_route_table
 sess_id = "chain_face-000"
 frame_id = 0
 
-# output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.cv.CV_FOURCC('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
-output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
+# # output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.cv.CV_FOURCC('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
+# output_file = cv2.VideoWriter('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/outputs/face_pipeline_output.avi', cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'), 24, (frame_width, frame_height))
 
-while True:
+total = 0.0
+count = 0
+
+while (frame_id < 120):
   start = time.time()
 
   ret, image = cap.read()
@@ -75,11 +78,17 @@ while True:
 
     request_input = next_request
 
-    if (current_model == "PRNet"):
-      # cv2.imwrite("tmp.jpg", request_input["FINAL"])
-      output_file.write(request_input["FINAL"])
+    # if (current_model == "PRNet"):
+    #   # cv2.imwrite("tmp.jpg", request_input["FINAL"])
+    #   output_file.write(request_input["FINAL"])
 
   end = time.time()
-  print("duration = %s" % (end - start))
+  duration = end - start
+  print("duration = %f" % duration)
+  if (frame_id > 5):
+    count += 1
+    total += duration
 
   frame_id += 1
+
+print("on average, it takes %f sec per frame" % (total / count))
