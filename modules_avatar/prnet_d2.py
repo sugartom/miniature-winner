@@ -87,24 +87,52 @@ class PRNet:
 
       result = istub.Predict(request, 10.0)
 
-      # assume no batching
-      pos = tensor_util.MakeNdarray(result.outputs['output'])
-      pos = np.squeeze(pos)
-      cropped_pos = pos * PRNet.MaxPos
+      pos_batched = tensor_util.MakeNdarray(result.outputs['output'])
 
-      cropped_vertices = np.reshape(cropped_pos, [-1, 3]).T
+      vertices_array = []
+      # w/ batching
+      for i in range(batch_size):
+        pos = pos_batched[i, :, :, :]
+        pos = np.squeeze(pos)
 
-      z = cropped_vertices[2, :].copy() / batched_data_dict["tform_params"][0][0, 0]
-      cropped_vertices[2, :] = 1
-      vertices = np.dot(np.linalg.inv(batched_data_dict["tform_params"][0]), cropped_vertices)
-      vertices = np.vstack((vertices[:2, :], z))
-      pos = np.reshape(
-        vertices.T, [PRNet.resolution_op, PRNet.resolution_op, 3])
+        cropped_pos = pos * PRNet.MaxPos
 
-      all_vertices = np.reshape(pos, [PRNet.resolution_op**2, -1])
-      vertices = all_vertices[PRNet.face_ind, :]
+        cropped_vertices = np.reshape(cropped_pos, [-1, 3]).T
 
-      batched_result_dict["vertices"] = [vertices]
+        z = cropped_vertices[2, :].copy() / batched_data_dict["tform_params"][i][0, 0]
+        cropped_vertices[2, :] = 1
+        vertices = np.dot(np.linalg.inv(batched_data_dict["tform_params"][i]), cropped_vertices)
+        vertices = np.vstack((vertices[:2, :], z))
+        pos = np.reshape(
+          vertices.T, [PRNet.resolution_op, PRNet.resolution_op, 3])
+
+        all_vertices = np.reshape(pos, [PRNet.resolution_op**2, -1])
+        vertices = all_vertices[PRNet.face_ind, :]
+
+        vertices_array.append(vertices)
+
+      batched_result_dict["vertices"] = vertices_array
+
+      # # assume no batching
+      # pos = tensor_util.MakeNdarray(result.outputs['output'])
+
+      # pos = np.squeeze(pos)
+
+      # cropped_pos = pos * PRNet.MaxPos
+
+      # cropped_vertices = np.reshape(cropped_pos, [-1, 3]).T
+
+      # z = cropped_vertices[2, :].copy() / batched_data_dict["tform_params"][0][0, 0]
+      # cropped_vertices[2, :] = 1
+      # vertices = np.dot(np.linalg.inv(batched_data_dict["tform_params"][0]), cropped_vertices)
+      # vertices = np.vstack((vertices[:2, :], z))
+      # pos = np.reshape(
+      #   vertices.T, [PRNet.resolution_op, PRNet.resolution_op, 3])
+
+      # all_vertices = np.reshape(pos, [PRNet.resolution_op**2, -1])
+      # vertices = all_vertices[PRNet.face_ind, :]
+
+      # batched_result_dict["vertices"] = [vertices]
 
       return batched_result_dict
 

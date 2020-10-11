@@ -41,7 +41,7 @@ pickle_directory = "%s/pickle_d2/miniature-winner/%s" % (os.environ['RIM_DOCKER_
 if not os.path.exists(pickle_directory):
   os.makedirs(pickle_directory)
 
-batch_size = 1
+batch_size = 4
 parallel_level = 1
 run_num = 10
 
@@ -52,7 +52,7 @@ client_input = misc.getClientInput("chain_face", source_reader)
 def runBatch(batch_size, run_num, tid):
   start = time.time()
 
-  frame_id = 0
+  frame_id = 1
   batch_id = 0
 
   while (batch_id < run_num):
@@ -75,12 +75,13 @@ def runBatch(batch_size, run_num, tid):
         data_array.append(data_dict)
       frame_id += 1
     elif (module_name == "prnet_main"):
-      pickle_input = "%s/%s" % ("%s/pickle_d2/%s/%s" % (os.environ['RIM_DOCKER_SHARE'], "miniature-winner", "prnet_cropper"), str(1).zfill(3))
-      with open(pickle_input) as f:
-        request = pickle.load(f)
-        data_dict = module_instance.GetDataDict(request, grpc_flag = False)
-        data_array.append(data_dict)
-      frame_id += 1
+      for i in range(batch_size):
+        pickle_input = "%s/%s" % ("%s/pickle_d2/%s/%s" % (os.environ['RIM_DOCKER_SHARE'], "miniature-winner", "prnet_cropper"), str(1).zfill(3))
+        with open(pickle_input) as f:
+          request = pickle.load(f)
+          data_dict = module_instance.GetDataDict(request, grpc_flag = False)
+          data_array.append(data_dict)
+        frame_id += 1
     
     batched_data_dict = module_instance.GetBatchedDataDict(data_array, batch_size)
 
