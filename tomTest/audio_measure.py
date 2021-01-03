@@ -81,8 +81,8 @@ def findPreviousModule(route_table, measure_module):
       return tmp[i - 1]
 
 
-simple_route_table = "Jasper-TextEncoder-TransformerBig"
-measure_module = "TransformerBig"
+simple_route_table = "Jasper-TextEncoder-Transformer"
+measure_module = "Transformer"
 route_table = simple_route_table
 
 sess_id = "chain_audio-000"
@@ -92,7 +92,7 @@ pickle_directory = "/home/yitao/Documents/fun-project/tensorflow-related/miniatu
 if not os.path.exists(pickle_directory):
   os.makedirs(pickle_directory)
 
-while (frame_id < 20):
+while (frame_id < 10):
   start = time.time()
 
   # get input
@@ -149,12 +149,14 @@ while (frame_id < 20):
   end = time.time()
   print("duration = %s" % (end - start))
 
+  if (measure_module == "Jasper"):
+    print(next_request["speech_recognition_output"])
   # if (measure_module == "Wave2Letter"):
   # 	print(next_request["speech_recognition_output"])
-  # elif (measure_module == "TextEncoder"):
-  #   print(next_request["encoder_output"])
-  # elif (measure_module == "Transformer"):
-  #   print(next_request["general_transformer_output"])
+  elif (measure_module == "TextEncoder"):
+    print(next_request["encoder_output"])
+  elif (measure_module == "Transformer"):
+    print(next_request["FINAL"])
   # elif (measure_module == "TextDecoder"):
   #   print(next_request["decoder_output"])
   # elif (measure_module == "Tacotron_de"):
