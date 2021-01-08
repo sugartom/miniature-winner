@@ -15,7 +15,7 @@ from modules_avatar.face_detector_flexible import FaceDetector
 from modules_avatar.prnet_image_cropper_flexible import PRNetImageCropper
 from modules_avatar.prnet_flexible import PRNet
 
-# from PRNet.utils.cv_plot import plot_vertices
+from PRNet.utils.cv_plot import plot_vertices
 
 ichannel = grpc.insecure_channel('0.0.0.0:8500')
 istub = prediction_service_pb2_grpc.PredictionServiceStub(ichannel)
@@ -25,7 +25,9 @@ FaceDetector.Setup()
 PRNetImageCropper.Setup()
 PRNet.Setup()
 
-cap = cv2.VideoCapture("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/IMG_0003.mov")
+# cap = cv2.VideoCapture("/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/IMG_0003.mov")
+cap = cv2.VideoCapture("/home/yitao/Documents/fun-project/tensorflow-related/Caesar-Edge/indoor_2min.mp4")
+
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
 
@@ -41,7 +43,7 @@ frame_id = 0
 total = 0.0
 count = 0
 
-while (frame_id < 120):
+while (frame_id < 5):
   start = time.time()
 
   ret, image = cap.read()
@@ -78,9 +80,16 @@ while (frame_id < 120):
 
     request_input = next_request
 
-    # if (current_model == "PRNet"):
-    #   # cv2.imwrite("tmp.jpg", request_input["FINAL"])
-    #   output_file.write(request_input["FINAL"])
+    if (current_model == "FaceDetector"):
+      print(request_input["bounding_box"])
+
+    elif (current_model == "PRNet"):
+      vertices = request_input["vertices"]
+      print(vertices.shape)
+      show_img = plot_vertices(np.zeros_like(image), vertices)
+      cv2.imwrite("tmp-%s.jpg" % str(frame_id).zfill(3), show_img)
+      # output_file.write(show_img)
+      # pass
 
   end = time.time()
   duration = end - start

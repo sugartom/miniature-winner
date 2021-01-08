@@ -6,7 +6,7 @@ import cv2
 import tensorflow as tf
 
 def find_face_bounding_box(boxes, scores):
-    min_score_thresh = 0.7
+    min_score_thresh = 0.2
     for i in range(0, boxes.shape[0]):
         if scores[i] > min_score_thresh:
             return tuple(boxes[i].tolist())

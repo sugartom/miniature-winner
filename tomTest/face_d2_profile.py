@@ -18,9 +18,9 @@ sys.path.append('/home/yitao/Documents/edge/D2-system/')
 from utils_d2 import misc
 from modules_d2.video_reader import VideoReader
 
-from modules_avatar.face_detector_d2 import FaceDetector
-from modules_avatar.prnet_image_cropper_d2 import PRNetImageCropper
-from modules_avatar.prnet_d2 import PRNet
+from modules_avatar.face_detector_d2_v2 import FaceDetector
+from modules_avatar.prnet_image_cropper_d2_v2 import PRNetImageCropper
+from modules_avatar.prnet_d2_v2 import PRNet
 
 ichannel = grpc.insecure_channel('0.0.0.0:8500')
 istub = prediction_service_pb2_grpc.PredictionServiceStub(ichannel)
@@ -34,16 +34,17 @@ PRNetImageCropper.Setup()
 PRNet.Setup()
 
 # config
-# route_table = "face_detector"
+# module_name = "face_detector"
+# module_name = "prnet_cropper"
 module_name = "prnet_main"
 
-pickle_directory = "%s/pickle_d2/miniature-winner/%s" % (os.environ['RIM_DOCKER_SHARE'], module_name)
-if not os.path.exists(pickle_directory):
-  os.makedirs(pickle_directory)
+# pickle_directory = "%s/pickle_d2/miniature-winner/%s" % (os.environ['RIM_DOCKER_SHARE'], module_name)
+# if not os.path.exists(pickle_directory):
+#   os.makedirs(pickle_directory)
 
-batch_size = 4
+batch_size = 1
 parallel_level = 1
-run_num = 10
+run_num = 6
 
 sess_id = "chain_face-000"
 
@@ -71,6 +72,7 @@ def runBatch(batch_size, run_num, tid):
       pickle_input = "%s/%s" % ("%s/pickle_d2/%s/%s" % (os.environ['RIM_DOCKER_SHARE'], "miniature-winner", "face_detector"), str(1).zfill(3))
       with open(pickle_input) as f:
         request = pickle.load(f)
+        request["output_flag"] = 1
         data_dict = module_instance.GetDataDict(request, grpc_flag = False)
         data_array.append(data_dict)
       frame_id += 1
@@ -79,6 +81,7 @@ def runBatch(batch_size, run_num, tid):
         pickle_input = "%s/%s" % ("%s/pickle_d2/%s/%s" % (os.environ['RIM_DOCKER_SHARE'], "miniature-winner", "prnet_cropper"), str(1).zfill(3))
         with open(pickle_input) as f:
           request = pickle.load(f)
+          request["output_flag"] = 1
           data_dict = module_instance.GetDataDict(request, grpc_flag = False)
           data_array.append(data_dict)
         frame_id += 1
@@ -99,8 +102,8 @@ def runBatch(batch_size, run_num, tid):
       for result in result_list:
         next_request = module_instance.GetNextRequest(result, grpc_flag = False)
 
-        # if (module_name == "face_detector"):
-        # #   print(next_request["face_detector_output"])
+        if (module_name == "face_detector"):
+          print(next_request["face_detector_output"])
         #   pickle_output = "%s/%s" % (pickle_directory, str(frame_id).zfill(3))
         #   with open(pickle_output, 'w') as f:
         #     pickle.dump(next_request, f)
