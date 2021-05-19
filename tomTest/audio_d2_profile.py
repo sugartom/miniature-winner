@@ -30,9 +30,9 @@ Jasper.Setup()
 TextEncoder.Setup()
 Transformer.Setup()
 
-# module_name = "jasper"
+module_name = "jasper"
 # module_name = "audio_encoder"
-module_name = "transformer"
+# module_name = "transformer"
 
 pickle_directory = "%s/pickle_d2/miniature-winner/%s" % (os.environ['RIM_DOCKER_SHARE'], module_name)
 if not os.path.exists(pickle_directory):
@@ -40,7 +40,7 @@ if not os.path.exists(pickle_directory):
 
 batch_size = 1
 parallel_level = 1
-run_num = 10
+run_num = 100
 
 input_audio, _ = librosa.load('/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/inputs/vlc-record-2019-09-01-11h13m06s-226-131533-0000.wav-.wav')
 client_input = input_audio

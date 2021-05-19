@@ -105,8 +105,8 @@ class FaceDetector:
         boxes_list = find_face_bounding_box(boxes[i], scores[i])
         # print("len(boxes_list = %d)" % len(boxes_list))
 
-        for i in range(len(boxes_list)):
-          box = boxes_list[i]
+        for j in range(len(boxes_list)):
+          box = boxes_list[j]
 
         # # debug only...
         # for i in range(4):
